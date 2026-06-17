@@ -1,0 +1,3577 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado PIRLS – Escola Municipal Celestina Scolaro Foggiatto</title>
+    <meta name="description"
+        content="Simulado PIRLS Interativo – Estudo Internacional de Progresso em Leitura para alunos da Escola Municipal Celestina Scolaro Foggiatto">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap"
+        rel="stylesheet">
+    <style>
+        /* =========================================
+           TOKENS DO DESIGN ESCOLAR
+        ========================================= */
+        :root {
+            --azul-escola: #1E40AF;
+            /* azul lousa */
+            --azul-claro: #3B82F6;
+            /* azul caderno */
+            --azul-ceu: #DBEAFE;
+            /* azul fundo leve */
+            --verde-lousa: #166534;
+            /* verde quadro negro */
+            --verde-claro: #22C55E;
+            /* verde marcador */
+            --amarelo-lapis: #FCD34D;
+            /* amarelo lápis */
+            --amarelo-deep: #D97706;
+            /* amarelo escuro */
+            --laranja: #FB923C;
+            /* laranja borracha */
+            --rosa: #F472B6;
+            /* rosa caneta */
+            --branco: #FFFFFF;
+            --cinza-leve: #F1F5F9;
+            --cinza-borda: #E2E8F0;
+            --texto-escuro: #1E293B;
+            --texto-medio: #475569;
+            --texto-leve: #94A3B8;
+            --sombra-card: 0 8px 32px rgba(30, 64, 175, 0.12);
+            --radius-card: 20px;
+        }
+
+        /* =========================================
+           RESET & BASE
+        ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            background: var(--azul-escola);
+            background-image:
+                radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 85% 80%, rgba(118, 75, 162, 0.4) 0%, transparent 50%),
+                linear-gradient(160deg, #1E40AF 0%, #1d4ed8 40%, #6d28d9 100%);
+            min-height: 100vh;
+            padding: 24px 16px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Fundo decorativo: bolinhas de giz */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(circle, rgba(255, 255, 255, 0.06) 2px, transparent 2px),
+                radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px, 30px 30px;
+            background-position: 0 0, 15px 15px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container-main {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* =========================================
+           ESTRELINHAS FLUTUANTES (DECORAÇÃO)
+        ========================================= */
+        .floating-stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0;
+            animation: floatStar linear infinite;
+        }
+
+        @keyframes floatStar {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(0deg) scale(0);
+            }
+
+            10% {
+                opacity: 0.7;
+            }
+
+            90% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-20px) rotate(360deg) scale(1);
+            }
+        }
+
+        /* =========================================
+           HEADER — LOUSA VERDE
+        ========================================= */
+        .header {
+            background: linear-gradient(145deg, #166534 0%, #15803d 60%, #16a34a 100%);
+            padding: 36px 28px 28px;
+            border-radius: var(--radius-card);
+            margin-bottom: 24px;
+            box-shadow:
+                0 4px 0 #14532d,
+                0 8px 0 rgba(0, 0, 0, 0.15),
+                0 16px 48px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: slideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Textura de lousa */
+        .header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 31px,
+                    rgba(255, 255, 255, 0.04) 31px,
+                    rgba(255, 255, 255, 0.04) 32px);
+            pointer-events: none;
+        }
+
+        /* Borda de madeira (calha da lousa) */
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, #92400e, #b45309, #78350f, #b45309, #92400e);
+            border-radius: 0 0 var(--radius-card) var(--radius-card);
+        }
+
+        .header h1 {
+            font-family: 'Fredoka One', cursive;
+            color: #FFFFFF;
+            font-size: 2.2rem;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .header h1 i {
+            color: var(--amarelo-lapis);
+            margin-right: 10px;
+            filter: drop-shadow(0 0 8px rgba(252, 211, 77, 0.6));
+            animation: wiggleIcon 2s ease-in-out infinite;
+        }
+
+        @keyframes wiggleIcon {
+
+            0%,
+            100% {
+                transform: rotate(-5deg);
+            }
+
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 4px 0;
+            font-size: 1rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .header .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.88rem;
+            margin-top: 10px;
+            font-style: italic;
+            position: relative;
+        }
+
+        /* Badge "giz" desenhado na lousa */
+        .school-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px dashed rgba(255, 255, 255, 0.4);
+            color: #fff;
+            padding: 6px 18px;
+            border-radius: 50px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            backdrop-filter: blur(4px);
+            position: relative;
+        }
+
+        /* =========================================
+           BARRA DE PROGRESSO
+        ========================================= */
+        .progress-container {
+            background: var(--branco);
+            padding: 18px 22px;
+            border-radius: 16px;
+            margin-bottom: 22px;
+            box-shadow: var(--sombra-card);
+            border: 2px solid var(--cinza-borda);
+            animation: slideDown 0.7s 0.1s both cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-container::before {
+            content: '✏️';
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-left: 30px;
+        }
+
+        .progress-label span {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--texto-medio);
+        }
+
+        .progress-label strong {
+            font-size: 0.9rem;
+            color: var(--azul-escola);
+            font-weight: 900;
+        }
+
+        .progress {
+            height: 14px;
+            border-radius: 10px;
+            background: var(--cinza-leve);
+            border: 2px solid var(--cinza-borda);
+            overflow: visible;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--azul-claro) 0%, var(--azul-escola) 50%, #7c3aed 100%);
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Estrela no topo da barra */
+        .progress-bar::after {
+            content: '⭐';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            filter: drop-shadow(0 0 4px rgba(252, 211, 77, 0.8));
+            transition: right 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.82rem;
+            color: var(--texto-leve);
+            font-weight: 600;
+        }
+
+        /* =========================================
+           TABS DE NAVEGAÇÃO
+        ========================================= */
+        .nav-tabs-custom {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: slideDown 0.7s 0.15s both cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tab-btn {
+            padding: 12px 28px;
+            border: 2.5px solid var(--cinza-borda);
+            background: var(--branco);
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            color: var(--texto-medio);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .tab-btn i {
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--azul-claro);
+            color: var(--azul-escola);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+        }
+
+        .tab-btn:hover i {
+            transform: rotate(-10deg) scale(1.2);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--azul-escola) 0%, #7c3aed 100%);
+            color: var(--branco);
+            border-color: transparent;
+            box-shadow: 0 8px 24px rgba(30, 64, 175, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active i {
+            transform: scale(1.1);
+        }
+
+        /* =========================================
+           CARDS DE CONTEÚDO
+        ========================================= */
+        .content-card {
+            background: var(--branco);
+            border-radius: var(--radius-card);
+            padding: 36px 40px;
+            box-shadow: var(--sombra-card);
+            margin-bottom: 24px;
+            border: 2px solid var(--cinza-borda);
+            display: none;
+            animation: cardEntrance 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .content-card.active {
+            display: block;
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* =========================================
+           SEÇÃO DA HISTÓRIA (CADERNO DE PAUTAS)
+        ========================================= */
+        .story-section {
+            background: #fffef5;
+            padding: 28px 32px;
+            border-radius: 14px;
+            margin-bottom: 32px;
+            border-left: 6px solid var(--azul-claro);
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Pautas de caderno */
+        .story-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(to bottom,
+                    transparent,
+                    transparent 27px,
+                    #dbeafe 27px,
+                    #dbeafe 28px);
+            pointer-events: none;
+        }
+
+        /* Margem vermelha do caderno */
+        .story-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 56px;
+            width: 2px;
+            background: #fca5a5;
+        }
+
+        .story-section h3 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--azul-escola);
+            font-size: 1.9rem;
+            margin-bottom: 18px;
+            position: relative;
+            padding-left: 56px;
+            text-shadow: 1px 1px 0 rgba(30, 64, 175, 0.1);
+        }
+
+        .story-section p {
+            color: var(--texto-escuro);
+            line-height: 2;
+            margin-bottom: 0;
+            font-size: 1rem;
+            position: relative;
+            padding-left: 56px;
+        }
+
+        /* =========================================
+           QUESTÕES
+        ========================================= */
+        .question-container {
+            margin-bottom: 32px;
+            animation: slideUp 0.5s ease-out both;
+        }
+
+        /* Atraso escalonado nas questões */
+        .question-container:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .question-container:nth-child(2) {
+            animation-delay: 0.10s;
+        }
+
+        .question-container:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .question-container:nth-child(4) {
+            animation-delay: 0.20s;
+        }
+
+        .question-container:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .question-container:nth-child(6) {
+            animation-delay: 0.30s;
+        }
+
+        .question-container:nth-child(7) {
+            animation-delay: 0.35s;
+        }
+
+        .question-container:nth-child(8) {
+            animation-delay: 0.40s;
+        }
+
+        .question-container:nth-child(9) {
+            animation-delay: 0.45s;
+        }
+
+        .question-container:nth-child(10) {
+            animation-delay: 0.50s;
+        }
+
+        .question-container:nth-child(11) {
+            animation-delay: 0.55s;
+        }
+
+        .question-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--amarelo-lapis), var(--amarelo-deep));
+            color: var(--texto-escuro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1rem;
+            margin-right: 14px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35), inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .question-container:hover .question-number {
+            transform: rotate(-8deg) scale(1.12);
+        }
+
+        .question-title {
+            display: flex;
+            align-items: flex-start;
+            font-weight: 800;
+            color: var(--texto-escuro);
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .options-group {
+            margin-left: 54px;
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-item {
+            position: relative;
+        }
+
+        .option-input,
+        .checkbox-input {
+            display: none;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            border: 2.5px solid var(--cinza-borda);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: var(--cinza-leve);
+            color: var(--texto-escuro);
+            font-weight: 600;
+            font-size: 0.97rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: transparent;
+            border-radius: 12px 0 0 12px;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            border-color: var(--azul-claro);
+            background: var(--azul-ceu);
+            color: var(--azul-escola);
+            transform: translateX(6px);
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+        }
+
+        .option-label:hover::before {
+            background: var(--azul-claro);
+        }
+
+        .option-input:checked+.option-label,
+        .checkbox-input:checked+.option-label {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(124, 58, 237, 0.08));
+            border-color: var(--azul-escola);
+            color: var(--azul-escola);
+            font-weight: 800;
+            transform: translateX(4px);
+            box-shadow: 0 4px 16px rgba(30, 64, 175, 0.2);
+        }
+
+        .option-input:checked+.option-label::before,
+        .checkbox-input:checked+.option-label::before {
+            background: var(--azul-escola);
+        }
+
+        /* Checkmark animado quando selecionado */
+        .option-input:checked+.option-label::after,
+        .checkbox-input:checked+.option-label::after {
+            content: '✓';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--azul-escola);
+            font-weight: 900;
+            font-size: 1.1rem;
+            animation: checkPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes checkPop {
+            from {
+                transform: translateY(-50%) scale(0) rotate(-20deg);
+            }
+
+            to {
+                transform: translateY(-50%) scale(1) rotate(0deg);
+            }
+        }
+
+        /* =========================================
+           TEXTAREA
+        ========================================= */
+        .textarea-wrapper {
+            margin-left: 54px;
+            margin-top: 12px;
+        }
+
+        .textarea-wrapper label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 800;
+            color: var(--azul-escola);
+            font-size: 0.9rem;
+        }
+
+        .textarea-wrapper textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2.5px solid var(--cinza-borda);
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.97rem;
+            resize: vertical;
+            min-height: 100px;
+            transition: all 0.25s ease;
+            color: var(--texto-escuro);
+            background: #fffef5;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .textarea-wrapper textarea:focus {
+            outline: none;
+            border-color: var(--azul-claro);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+            background: #fff;
+        }
+
+        /* =========================================
+           BOTÕES
+        ========================================= */
+        .button-group {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            margin-top: 36px;
+            flex-wrap: wrap;
+        }
+
+        .btn-custom {
+            padding: 14px 36px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--azul-escola) 0%, #7c3aed 100%);
+            color: white;
+            box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4), inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 32px rgba(30, 64, 175, 0.5), inset 0 -3px 0 rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        .btn-primary-custom:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        .btn-secondary-custom {
+            background: white;
+            color: var(--azul-escola);
+            border: 2.5px solid var(--azul-escola);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1);
+        }
+
+        .btn-secondary-custom:hover {
+            background: var(--azul-escola);
+            color: white;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(30, 64, 175, 0.3);
+        }
+
+        /* =========================================
+           ANIMAÇÕES GLOBAIS
+        ========================================= */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-28px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+
+            70% {
+                transform: scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            }
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+        .footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.75);
+            padding: 28px 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .footer p {
+            margin: 4px 0;
+        }
+
+        /* =========================================
+           RESPONSIVO
+        ========================================= */
+        @media (max-width: 768px) {
+            .header {
+                padding: 24px 16px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.6rem;
+            }
+
+            .content-card {
+                padding: 20px 16px;
+            }
+
+            .story-section {
+                padding: 20px 16px;
+            }
+
+            .story-section h3,
+            .story-section p {
+                padding-left: 10px;
+            }
+
+            .story-section::after {
+                display: none;
+            }
+
+            .options-group,
+            .textarea-wrapper {
+                margin-left: 0;
+            }
+
+            .tab-btn {
+                padding: 10px 18px;
+                font-size: 0.88rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-custom {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Layout de imagens no mobile */
+            .story-section [style*="display: flex"] {
+                flex-direction: column !important;
+            }
+
+            .story-section [style*="max-width: 340px"],
+            .story-section [style*="max-width: 320px"],
+            .story-section [style*="max-width: 300px"],
+            .story-section [style*="max-width: 260px"],
+            .story-section [style*="max-width: 120px"] {
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+
+            .story-section [style*="padding-left: 56px"] {
+                padding-left: 10px !important;
+            }
+        }
+
+
+        /* =========================================
+           MENSAGEM DE CONCLUSÃO
+        ========================================= */
+        .completion-message {
+            background: linear-gradient(135deg, #ecfdf5, #dbeafe);
+            border: 3px solid var(--verde-claro);
+            border-radius: 18px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 28px;
+            display: none;
+            animation: bounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .completion-message.show {
+            display: block;
+        }
+
+        .completion-message i {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+            display: block;
+            color: var(--verde-lousa);
+            animation: wiggleIcon 1.5s ease-in-out infinite;
+        }
+
+        .completion-message h3 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: var(--verde-lousa);
+            margin-bottom: 8px;
+        }
+
+        .completion-message p {
+            color: var(--texto-medio);
+            font-weight: 600;
+        }
+
+        /* =========================================
+           BOTÃO DO PROFESSOR
+        ========================================= */
+        .btn-teacher {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: linear-gradient(135deg, var(--amarelo-lapis), var(--amarelo-deep));
+            color: var(--texto-escuro);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(217, 119, 6, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .btn-teacher:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 24px rgba(217, 119, 6, 0.5);
+            color: var(--texto-escuro);
+        }
+
+        /* =========================================
+           BADGE DO ALUNO
+        ========================================= */
+        .student-badge {
+            background: rgba(255, 255, 255, 0.18);
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            animation: bounceIn 0.5s ease-out;
+            position: relative;
+        }
+
+        .student-badge i {
+            color: var(--amarelo-lapis);
+        }
+
+        /* =========================================
+           MODAIS
+        ========================================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.25s ease-out;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-card.modal-lg {
+            max-width: 820px;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--azul-escola) 0%, #7c3aed 100%);
+            color: white;
+            padding: 20px 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h4 {
+            margin: 0;
+            font-family: 'Fredoka One', cursive;
+            font-weight: 400;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: all 0.2s;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 26px;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            padding: 16px 26px;
+            background: var(--cinza-leve);
+            border-top: 1px solid var(--cinza-borda);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* =========================================
+           PAINEL DO PROFESSOR
+        ========================================= */
+        .metric-card {
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 2px solid var(--cinza-borda);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--azul-claro), var(--azul-escola));
+        }
+
+        .metric-card.metric-gold::before {
+            background: linear-gradient(90deg, #fbbf24, #d97706);
+        }
+
+        .metric-card.metric-green::before {
+            background: linear-gradient(90deg, #34d399, #059669);
+        }
+
+        .metric-card.metric-blue::before {
+            background: linear-gradient(90deg, #60a5fa, #2563eb);
+        }
+
+        .metric-card.metric-purple::before {
+            background: linear-gradient(90deg, #a78bfa, #7c3aed);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 36px rgba(30, 64, 175, 0.15);
+        }
+
+        .metric-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--azul-ceu);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--azul-escola);
+            flex-shrink: 0;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .metric-card:hover .metric-icon {
+            transform: rotate(-8deg) scale(1.1);
+        }
+
+        .metric-card.metric-gold .metric-icon {
+            background: rgba(252, 211, 77, 0.2);
+            color: #d97706;
+        }
+
+        .metric-card.metric-green .metric-icon {
+            background: rgba(52, 211, 153, 0.2);
+            color: #059669;
+        }
+
+        .metric-card.metric-blue .metric-icon {
+            background: rgba(96, 165, 250, 0.2);
+            color: #2563eb;
+        }
+
+        .metric-card.metric-purple .metric-icon {
+            background: rgba(167, 139, 250, 0.2);
+            color: #7c3aed;
+        }
+
+        .metric-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-label {
+            font-size: 0.73rem;
+            color: var(--texto-leve);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            color: var(--texto-escuro);
+            font-weight: 900;
+            margin-top: 2px;
+            line-height: 1.2;
+        }
+
+        .metric-sub {
+            font-size: 0.76rem;
+            color: var(--texto-leve);
+            margin-top: 1px;
+            font-weight: 600;
+        }
+
+        /* Seções do Painel */
+        .panel-section {
+            background: var(--branco);
+            border: 2px solid var(--cinza-borda);
+            border-radius: 18px;
+            padding: 26px;
+            height: 100%;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .panel-section-title {
+            color: var(--texto-escuro);
+            font-weight: 900;
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-section-subtitle {
+            font-size: 0.8rem;
+            color: var(--texto-leve);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* =========================================
+           PÓDIO
+        ========================================= */
+        .podium-wrapper {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 12px;
+            padding: 10px 0 0 0;
+            margin-bottom: 26px;
+        }
+
+        .podium-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 120px;
+        }
+
+        .podium-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            border: 3px solid white;
+            position: relative;
+            animation: bounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        .podium-avatar.rank-1 {
+            background: linear-gradient(135deg, #fcd34d, #d97706);
+            width: 62px;
+            height: 62px;
+            font-size: 1.5rem;
+            animation-delay: 0.1s;
+        }
+
+        .podium-avatar.rank-2 {
+            background: linear-gradient(135deg, #cbd5e1, #94a3b8);
+            animation-delay: 0.2s;
+        }
+
+        .podium-avatar.rank-3 {
+            background: linear-gradient(135deg, #d97706, #92400e);
+            animation-delay: 0.3s;
+        }
+
+        .podium-medal {
+            position: absolute;
+            top: -8px;
+            right: -6px;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .podium-name {
+            font-size: 0.77rem;
+            font-weight: 800;
+            color: var(--texto-escuro);
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            margin-bottom: 3px;
+        }
+
+        .podium-class {
+            font-size: 0.68rem;
+            color: var(--texto-leve);
+            text-align: center;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .podium-block {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+            padding: 12px 0;
+        }
+
+        .podium-block.rank-1 {
+            background: linear-gradient(180deg, #fcd34d, #d97706);
+            height: 82px;
+            font-size: 1.3rem;
+        }
+
+        .podium-block.rank-2 {
+            background: linear-gradient(180deg, #cbd5e1, #94a3b8);
+            height: 62px;
+        }
+
+        .podium-block.rank-3 {
+            background: linear-gradient(180deg, #d97706, #92400e);
+            height: 46px;
+        }
+
+        /* =========================================
+           RANKING DE ALUNOS
+        ========================================= */
+        .student-rank-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 340px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .student-rank-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .student-rank-list::-webkit-scrollbar-track {
+            background: var(--cinza-leve);
+            border-radius: 10px;
+        }
+
+        .student-rank-list::-webkit-scrollbar-thumb {
+            background: var(--azul-claro);
+            border-radius: 10px;
+        }
+
+        .student-rank-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--cinza-leve);
+            border-radius: 12px;
+            border: 2px solid var(--cinza-borda);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .student-rank-row:hover {
+            background: var(--azul-ceu);
+            border-color: var(--azul-claro);
+            transform: translateX(4px);
+        }
+
+        .rank-number {
+            font-size: 0.8rem;
+            font-weight: 900;
+            color: var(--texto-leve);
+            width: 22px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .rank-number.top-3 {
+            color: var(--azul-escola);
+            font-size: 0.9rem;
+        }
+
+        .rank-avatar-small {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--azul-claro), var(--azul-escola));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .rank-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .rank-student-name {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: var(--texto-escuro);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .rank-student-meta {
+            font-size: 0.72rem;
+            color: var(--texto-leve);
+            font-weight: 600;
+        }
+
+        .rank-score-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .rank-score-number {
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--azul-escola);
+            line-height: 1.1;
+        }
+
+        .rank-score-total {
+            font-size: 0.65rem;
+            color: var(--texto-leve);
+            font-weight: 600;
+        }
+
+        .rank-score-bar {
+            height: 5px;
+            background: var(--cinza-borda);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 4px;
+            width: 50px;
+        }
+
+        .rank-score-bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--azul-claro), var(--azul-escola));
+            transition: width 1s ease-in-out;
+        }
+
+        /* =========================================
+           BARRAS DE TURMA
+        ========================================= */
+        .ranking-item {
+            margin-bottom: 18px;
+        }
+
+        .ranking-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 0.87rem;
+            font-weight: 800;
+            color: var(--texto-escuro);
+            align-items: center;
+        }
+
+        .ranking-bar-wrapper {
+            height: 14px;
+            background: var(--cinza-leve);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--cinza-borda);
+        }
+
+        .ranking-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--azul-claro), var(--azul-escola));
+            border-radius: 10px;
+            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0;
+        }
+
+        .ranking-count {
+            font-size: 0.72rem;
+            color: var(--texto-leve);
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .ranking-pct {
+            font-size: 0.77rem;
+            color: var(--azul-escola);
+            font-weight: 900;
+        }
+
+        /* =========================================
+           DETALHES DO ALUNO (MODAL)
+        ========================================= */
+        .student-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            background: var(--azul-ceu);
+            padding: 16px 18px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            border-left: 4px solid var(--azul-escola);
+        }
+
+        @media (max-width: 576px) {
+            .student-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .detail-question-card {
+            background: white;
+            border: 2px solid var(--cinza-borda);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .detail-question-header {
+            font-weight: 800;
+            color: var(--texto-escuro);
+            margin-bottom: 8px;
+            font-size: 0.93rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .detail-answer-box {
+            background: var(--cinza-leve);
+            border: 2px solid var(--cinza-borda);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 0.93rem;
+            color: var(--texto-medio);
+            white-space: pre-wrap;
+            margin-top: 4px;
+        }
+
+        .correct-badge {
+            background: #dcfce7;
+            color: #166534;
+            border: 1.5px solid #86efac;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        .incorrect-badge {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1.5px solid #fca5a5;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        .panel-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cinza-borda), transparent);
+            margin: 26px 0;
+        }
+
+        /* =========================================
+           MOBILE — AJUSTE PAINEL
+        ========================================= */
+        @media (max-width: 768px) {
+            .btn-teacher {
+                position: static;
+                margin: 12px auto 0 auto;
+                justify-content: center;
+                max-width: 220px;
+            }
+
+            .podium-wrapper {
+                gap: 6px;
+            }
+
+            .podium-item {
+                max-width: 90px;
+            }
+
+            .podium-name {
+                font-size: 0.68rem;
+            }
+        }
+
+        /* =========================================
+           FORMULÁRIO DE REGISTRO — MICRO-ANIMAÇÕES
+        ========================================= */
+        #registration-card .story-section {
+            text-align: center;
+        }
+
+        #registration-card .story-section h3 {
+            padding-left: 0;
+        }
+
+        #registration-card .story-section p {
+            padding-left: 0;
+        }
+
+        .form-control,
+        .form-select {
+            font-family: 'Nunito', sans-serif !important;
+            font-weight: 600 !important;
+            border-radius: 12px !important;
+            border: 2.5px solid var(--cinza-borda) !important;
+            transition: all 0.25s ease !important;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--azul-claro) !important;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12) !important;
+            outline: none !important;
+        }
+
+        /* =========================================
+           CONFETTI CANVAS
+        ========================================= */
+        #confetti-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+
+
+
+
+</head>
+
+<body>
+
+    <!-- Estrelinhas flutuantes decorativas -->
+    <div class="floating-stars" id="floating-stars"></div>
+
+    <!-- Canvas para confetti -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container-main">
+
+
+        <!-- Header -->
+        <div class="header" style="position: relative;">
+            <button class="btn-teacher" onclick="openTeacherPanelAuth()">
+                <i class="fas fa-chalkboard-teacher"></i> Painel do Professor
+            </button>
+            <h1><i class="fas fa-book"></i> Simulado PIRLS</h1>
+            <p>Estudo Internacional de Progresso em Leitura</p>
+            <p class="subtitle">Escola Municipal Celestina Scolaro Foggiatto</p>
+            <div id="student-badge" class="student-badge" style="display: none;">
+                <i class="fas fa-user-graduate"></i> Aluno: <strong id="badge-name"></strong> | <span
+                    id="badge-grade"></span> - <span id="badge-class"></span>
+            </div>
+        </div>
+
+        <!-- Seção de Identificação do Aluno (Tela Inicial) -->
+        <div id="registration-card" class="content-card active" style="display: block;">
+            <div class="story-section text-center">
+                <h3><i class="fas fa-user-edit text-primary"></i> Identificação do Aluno</h3>
+                <p>Bem-vindo ao simulado PIRLS! Para começar, informe seu nome, série e turma abaixo.</p>
+            </div>
+            <form id="form-registration" onsubmit="startQuiz(event)">
+                <div class="mb-4">
+                    <label for="student-name" class="form-label" style="color: #667eea; font-weight: 600;">Nome
+                        Completo</label>
+                    <input type="text" id="student-name" class="form-control form-control-lg"
+                        placeholder="Digite seu nome completo" required
+                        style="border-radius: 12px; border: 2px solid #e0e0e0; padding: 12px 18px; font-size: 1rem;">
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label for="student-grade" class="form-label" style="color: #667eea; font-weight: 600;">Ano /
+                            Série</label>
+                        <select id="student-grade" class="form-select form-select-lg" required
+                            style="border-radius: 12px; border: 2px solid #e0e0e0; padding: 12px 18px; font-size: 1rem; height: 52px;">
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="4º Ano">4º Ano</option>
+                            <option value="5º Ano">5º Ano</option>
+                            <option value="6º Ano">6º Ano</option>
+                            <option value="7º Ano">7º Ano</option>
+                            <option value="8º Ano">8º Ano</option>
+                            <option value="9º Ano">9º Ano</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="student-class" class="form-label"
+                            style="color: #667eea; font-weight: 600;">Turma</label>
+                        <select id="student-class" class="form-select form-select-lg" required
+                            style="border-radius: 12px; border: 2px solid #e0e0e0; padding: 12px 18px; font-size: 1rem; height: 52px;">
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="Turma A">Turma A</option>
+                            <option value="Turma B">Turma B</option>
+                            <option value="Turma C">Turma C</option>
+                            <option value="Turma D">Turma D</option>
+                            <option value="Outra">Outra</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn-custom btn-primary-custom" style="padding: 14px 45px;">
+                        Iniciar Simulado <i class="fas fa-play" style="margin-left: 8px;"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- PAINEL DO PROFESSOR (Inicialmente oculto) -->
+        <div id="teacher-panel" class="content-card" style="display: none;">
+
+            <!-- Cabeçalho do Painel -->
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                <div>
+                    <h3 style="color: #667eea; font-weight: 800; margin: 0; font-size: 1.5rem;">
+                        <i class="fas fa-chart-bar"></i> Painel do Professor
+                    </h3>
+                    <p style="color: #aaa; font-size: 0.85rem; margin: 4px 0 0 0;">Relatório de desempenho dos alunos no
+                        Simulado PIRLS</p>
+                </div>
+                <div class="d-flex gap-2 flex-wrap">
+                    <button class="btn-custom btn-secondary-custom" onclick="exportToCSV()"
+                        style="padding: 8px 18px; font-size: 0.85rem;">
+                        <i class="fas fa-file-export"></i> Exportar CSV
+                    </button>
+                    <button class="btn-custom" onclick="clearDatabase()"
+                        style="background: linear-gradient(135deg,#ff6b6b,#dc3545); color:white; padding:8px 18px; border-radius:25px; font-weight:600; border:none; font-size:0.85rem;">
+                        <i class="fas fa-trash-alt"></i> Limpar Dados
+                    </button>
+                    <button class="btn-custom btn-secondary-custom" onclick="closeTeacherPanel()"
+                        style="padding: 8px 18px; font-size: 0.85rem;">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Métricas Resumo -->
+            <div class="row mb-4">
+                <div class="col-6 col-lg-3 mb-3">
+                    <div class="metric-card metric-blue">
+                        <div class="metric-icon"><i class="fas fa-users"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Alunos</span>
+                            <span class="metric-value" id="stats-total">0</span>
+                            <span class="metric-sub">respostas registradas</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 mb-3">
+                    <div class="metric-card metric-green">
+                        <div class="metric-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Média da Turma</span>
+                            <span class="metric-value" id="stats-average">—</span>
+                            <span class="metric-sub">acertos objetivos / 11</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 mb-3">
+                    <div class="metric-card metric-gold">
+                        <div class="metric-icon"><i class="fas fa-trophy"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Melhor Turma</span>
+                            <span class="metric-value" id="stats-top-class" style="font-size:1rem;">—</span>
+                            <span class="metric-sub" id="stats-top-class-avg"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 mb-3">
+                    <div class="metric-card metric-purple">
+                        <div class="metric-icon"><i class="fas fa-percentage"></i></div>
+                        <div class="metric-info">
+                            <span class="metric-label">Taxa de Acerto</span>
+                            <span class="metric-value" id="stats-hit-rate">—</span>
+                            <span class="metric-sub">percentual médio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pódio + Ranking Completo de Alunos -->
+            <div class="row mb-4">
+                <!-- Pódio Top 3 -->
+                <div class="col-lg-5 mb-4">
+                    <div class="panel-section">
+                        <p class="panel-section-title"><i class="fas fa-medal" style="color:#f6c90e;"></i> Melhores
+                            Alunos</p>
+                        <p class="panel-section-subtitle">Top 3 com maior número de acertos no simulado</p>
+                        <div id="podium-container">
+                            <div class="text-center py-4 text-muted" style="font-size:0.9rem;">
+                                <i class="fas fa-users"
+                                    style="font-size:2rem; opacity:0.3; display:block; margin-bottom:10px;"></i>
+                                Nenhum dado registrado ainda.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ranking Completo -->
+                <div class="col-lg-7 mb-4">
+                    <div class="panel-section">
+                        <p class="panel-section-title"><i class="fas fa-list-ol" style="color:#667eea;"></i> Ranking de
+                            Alunos</p>
+                        <p class="panel-section-subtitle">Todos os alunos ordenados por pontuação</p>
+                        <!-- Filtros -->
+                        <div class="d-flex mb-3 gap-2">
+                            <div class="input-group" style="flex:1;">
+                                <span class="input-group-text bg-white border-end-0"
+                                    style="border-radius:10px 0 0 10px; border:2px solid #e8eaf0; border-right:none;">
+                                    <i class="fas fa-search" style="color:#bbb; font-size:0.85rem;"></i>
+                                </span>
+                                <input type="text" id="search-student" class="form-control border-start-0"
+                                    placeholder="Buscar aluno..."
+                                    style="border-radius:0 10px 10px 0; border:2px solid #e8eaf0; border-left:none; padding:8px 12px; font-size:0.88rem;"
+                                    oninput="renderStudentsTable()">
+                            </div>
+                            <select id="filter-class" class="form-select"
+                                style="border-radius:10px; border:2px solid #e8eaf0; font-size:0.85rem; max-width:130px;"
+                                onchange="renderStudentsTable()">
+                                <option value="">Todas turmas</option>
+                            </select>
+                        </div>
+                        <!-- Lista de alunos estilizada -->
+                        <div class="student-rank-list" id="students-rank-list">
+                            <div class="text-center py-4 text-muted" style="font-size:0.9rem;">Nenhum aluno registrado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desempenho por Turma -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="panel-section">
+                        <p class="panel-section-title"><i class="fas fa-school" style="color:#764ba2;"></i> Desempenho
+                            por Turma</p>
+                        <p class="panel-section-subtitle">Ranking das turmas ordenado pela média de acertos nas 11
+                            questões objetivas</p>
+                        <div id="class-ranking-container">
+                            <div class="text-center py-4 text-muted">Sem dados disponíveis.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Conteiner do Simulado (Escondido até iniciar) -->
+        <div id="quiz-container" style="display: none;">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress">
+                    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">
+                    <span>Progresso do Simulado</span>
+                    <span id="progressText">0%</span>
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="nav-tabs-custom">
+                <button class="tab-btn active" onclick="switchTab('vaso', event)">
+                    <i class="fas fa-leaf"></i> O Vaso Vazio
+                </button>
+                <button class="tab-btn" onclick="switchTab('polvo', event)">
+                    <i class="fas fa-water"></i> O Incrível Polvo
+                </button>
+            </div>
+
+            <!-- BLOCO 1: O VASO VAZIO -->
+            <div id="vaso" class="content-card active">
+                <div class="story-section">
+                    <h3>O Vaso Vazio</h3>
+                    <p
+                        style="font-style: italic; color: var(--texto-leve); font-size: 0.88rem; padding-left: 56px; margin-bottom: 18px;">
+                        recontado por Elaine L. Lindy, ilustrado por Jennifer Moher</p>
+
+                    <!-- Parágrafo 1 + Imagem do Palácio -->
+                    <div
+                        style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                        <div style="flex: 1; position: relative; z-index: 1; padding-left: 56px;">
+                            <p style="padding-left: 0;">O Imperador da China anunciou um concurso para
+                                escolher o próximo herdeiro do trono. O Imperador era
+                                velho e não tinha filhos. Como adorava plantas, anunciou que qualquer criança que
+                                quisesse ser
+                                imperador devia vir ao palácio para receber uma semente real. A criança que conseguisse
+                                mostrar os
+                                melhores resultados em seis meses ganharia o concurso e seria o próximo imperador.</p>
+                            <p style="padding-left: 0;">Podes imaginar o entusiasmo! No dia em que as sementes iam ser
+                                distribuídas, filas de crianças
+                                esperançosas encheram o palácio. Cada criança regressou a casa segurando uma
+                                oportunidade preciosa.</p>
+                        </div>
+                        <div style="flex-shrink: 0; max-width: 340px;">
+                            <img src="images/image.png" alt="Palácio Imperial da China"
+                                style="width: 100%; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); transition: transform 0.3s ease;"
+                                onmouseover="this.style.transform='scale(1.03)'"
+                                onmouseout="this.style.transform='scale(1)'">
+                        </div>
+                    </div>
+
+                    <!-- Parágrafo 2 + 2 Imagens decorativas de folha e flor -->
+                    <div
+                        style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                        <div
+                            style="flex-shrink: 0; max-width: 110px; display: flex; flex-direction: column; gap: 16px; align-items: center; padding-top: 10px;">
+                            <img src="images/image2.png" alt="Folha verde" style="width: 90px; object-fit: contain;">
+                            <img src="images/image3.png" alt="Flor de lótus" style="width: 90px; object-fit: contain;">
+                        </div>
+                        <div style="flex: 1; position: relative; z-index: 1;">
+                            <p>E assim aconteceu com o jovem Jun. Ele já era considerado como o melhor jardineiro da
+                                aldeia. Os seus
+                                vizinhos adoravam partilhar os melões, as couves e as ervilhas do jardim dele.
+                                Cuidadosamente, Jun
+                                levou a semente do Imperador para casa, mantendo-a segura nas suas mãos para ela não
+                                cair, mas não
+                                tão apertada que a fosse esmagar.</p>
+                            <p>Em casa, ele espalhou pedras grandes no fundo de um vaso de flores, tapou as pedras com
+                                seixos e
+                                depois encheu o vaso com terra boa e húmida. Enterrou a semente alguns centímetros
+                                abaixo da
+                                superfície e cobriu-a com terra fofa. Durante os dias seguintes, Jun, tal como todas as
+                                crianças que
+                                ele conhecia, regou o seu vaso diariamente e aguardou que a primeira folha aparecesse à
+                                superfície.</p>
+                            <p>Cheun foi a primeira criança da aldeia do Jun a anunciar que a sua semente tinha
+                                germinado. Isto foi
+                                recebido com gritos de felicitação. Ele gabava-se de que iria ser certamente o próximo
+                                imperador e
+                                praticou as suas habilidades reais comandando as crianças mais novas. Ming foi a próxima
+                                criança a
+                                quem nasceu uma pequena planta no seu vaso, a seguir foi Wong. Jun estava intrigado –
+                                nenhum destes
+                                rapazes sabia cultivar plantas tão bem quanto ele! Mas a semente do Jun não crescia.</p>
+                        </div>
+                    </div>
+
+                    <!-- Parágrafo 3 + Vaso com flor vs vaso vazio -->
+                    <div
+                        style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                        <div style="flex: 1; position: relative; z-index: 1; padding-left: 56px;">
+                            <p style="padding-left: 0;">Por toda a aldeia, surgiram rebentos nos vasos. As crianças
+                                construíram vedações à volta dos vasos e
+                                protegeram-nos de quem os pudesse tombar acidentalmente – ou não tão acidentalmente. Em
+                                breve,
+                                dezenas de rebentos alongavam as suas primeiras folhas nos vasos pela aldeia de Jun. Mas
+                                a semente
+                                de Jun não crescia. Ele estava confuso — O que estava errado? — Jun tornou a plantar
+                                cuidadosamente
+                                a sua semente num outro vaso com a melhor e mais rica terra negra do seu jardim. Ele
+                                esmigalhou cada
+                                torrão de terra em pequenas partículas. Enterrou cuidadosamente a semente e manteve a
+                                superfície
+                                húmida e vigiou o vaso diariamente. Mesmo assim, a semente de Jun não crescia.</p>
+                            <p style="padding-left: 0;">Caules fortes e poderosos emergiram rapidamente nos vasos das
+                                outras crianças da aldeia. Jun estava
+                                triste e derrotado. As outras crianças riam-se dele.</p>
+                        </div>
+                        <div style="flex-shrink: 0; max-width: 300px;">
+                            <img src="images/image4.png" alt="Vaso com flor e vaso vazio de Jun"
+                                style="width: 100%; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); transition: transform 0.3s ease;"
+                                onmouseover="this.style.transform='scale(1.03)'"
+                                onmouseout="this.style.transform='scale(1)'">
+                        </div>
+                    </div>
+
+                    <!-- Parágrafo 4 + Vaso vazio com flores ao redor -->
+                    <div
+                        style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                        <div style="flex-shrink: 0; max-width: 300px;">
+                            <img src="images/image5.png" alt="Jun com seu vaso vazio observando"
+                                style="width: 100%; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); transition: transform 0.3s ease;"
+                                onmouseover="this.style.transform='scale(1.03)'"
+                                onmouseout="this.style.transform='scale(1)'">
+                        </div>
+                        <div style="flex: 1; position: relative; z-index: 1;">
+                            <p>Passaram-se seis meses. Aproximava-se o dia em que as crianças deviam trazer as suas
+                                plantas ao
+                                palácio para avaliação. Elas limparam os vasos até brilharem, enxugaram cuidadosamente
+                                as grandes
+                                folhas e vestiram as suas melhores roupas. Alguns pais acompanharam os seus filhos
+                                enquanto eles
+                                levavam o vaso para o palácio, mantendo a planta direita para evitar que se virasse.</p>
+                            <p>— O que hei de fazer? – lamentou-se Jun a seus pais enquanto observava pela janela as
+                                outras crianças
+                                a prepararem-se para o seu regresso triunfal ao palácio. – A minha semente não cresceu!
+                                O meu vaso
+                                está vazio!</p>
+                            <p>— Tu fizeste o melhor que podias – disse o pai dele, abanando a cabeça.</p>
+                            <p>— Jun, leva o teu vaso ao Imperador – disse a mãe dele – é o melhor que tens a fazer.</p>
+                        </div>
+                    </div>
+
+                    <!-- Parágrafo 5 + Três crianças no palácio -->
+                    <div
+                        style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                        <div style="flex: 1; position: relative; z-index: 1; padding-left: 56px;">
+                            <p style="padding-left: 0;">Envergonhado, Jun levou o seu vaso vazio pela estrada até ao
+                                palácio, enquanto crianças cheias de
+                                alegria, levando vasos a balançar com plantas enormes, caminhavam à sua direita e à sua
+                                esquerda.</p>
+                            <p style="padding-left: 0;">No palácio, as crianças formaram filas com as plantas
+                                florescentes e esperaram a decisão. O
+                                Imperador, envolvido no seu manto de seda, galgou a linha dos concorrentes esperançosos,
+                                observando
+                                cada planta com um franzir de sobrancelhas. Quando chegou a Jun, ficou mais carrancudo e
+                                disse: — O
+                                que é isto? Trouxeste-me um vaso vazio?</p>
+                        </div>
+                        <div style="flex-shrink: 0; max-width: 320px;">
+                            <img src="images/image6.png" alt="Três crianças no palácio com seus vasos"
+                                style="width: 100%; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); transition: transform 0.3s ease;"
+                                onmouseover="this.style.transform='scale(1.03)'"
+                                onmouseout="this.style.transform='scale(1)'">
+                        </div>
+                    </div>
+
+                    <!-- Parágrafo 6 + Imperador -->
+                    <div
+                        style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 8px; position: relative;">
+                        <div style="flex-shrink: 0; max-width: 260px;">
+                            <img src="images/image7.png" alt="O Imperador revela a verdade"
+                                style="width: 100%; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); transition: transform 0.3s ease;"
+                                onmouseover="this.style.transform='scale(1.03)'"
+                                onmouseout="this.style.transform='scale(1)'">
+                        </div>
+                        <div style="flex: 1; position: relative; z-index: 1;">
+                            <p>Pouco faltou para Jun desatar a chorar. – Por favor, Majestade – disse Jun – Eu fiz o meu
+                                melhor.
+                                Plantei a sua semente na melhor terra que encontrei, mantive-a húmida e vigiei-a todos
+                                os dias. Como
+                                a semente não crescia, tornei a plantá-la em terra nova. Mas ela simplesmente não
+                                cresceu. Desculpe.
+                                – Jun baixou a cabeça.</p>
+                            <p>— Hmm – exclamou o Imperador. Virando-se para que todos o pudessem ouvir, ele disse com
+                                voz de
+                                trovão: — Não sei onde as outras crianças foram buscar as sementes delas. Nada podia
+                                crescer das
+                                sementes que vos dei, porque essas sementes tinham sido cozidas!</p>
+                            <p>E o Imperador sorriu para Jun.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Questions Bloco 1 -->
+                <form id="form-vaso">
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">1</span>
+                            Porque é que o Imperador organizou o concurso?
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="radio" id="v1a" name="v1" value="a" class="option-input">
+                                <label for="v1a" class="option-label">A) para ensinar coisas sobre plantas às
+                                    crianças</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v1b" name="v1" value="b" class="option-input">
+                                <label for="v1b" class="option-label">B) para escolher um novo Imperador</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v1c" name="v1" value="c" class="option-input">
+                                <label for="v1c" class="option-label">C) para mostrar como ele era grandioso</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v1d" name="v1" value="d" class="option-input">
+                                <label for="v1d" class="option-label">D) para encontrar a melhor espécie de
+                                    planta</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">2</span>
+                            O que é que cada criança recebeu do Imperador?
+                        </div>
+                        <div class="textarea-wrapper">
+                            <textarea name="v2" placeholder="Escreva sua resposta aqui..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">3</span>
+                            Porque se chamou «oportunidade preciosa» a cada semente?
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="radio" id="v3a" name="v3" value="a" class="option-input">
+                                <label for="v3a" class="option-label">A) Cada semente permitia ganhar o
+                                    concurso.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v3b" name="v3" value="b" class="option-input">
+                                <label for="v3b" class="option-label">B) Cada semente era real e muito
+                                    dispendiosa.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v3c" name="v3" value="c" class="option-input">
+                                <label for="v3c" class="option-label">C) Cada semente ia transformar-se numa linda
+                                    planta.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v3d" name="v3" value="d" class="option-input">
+                                <label for="v3d" class="option-label">D) Cada semente permitia tornar-se no melhor
+                                    jardineiro.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">4</span>
+                            O que é que mostra que Jun era o melhor jardineiro da aldeia?
+                        </div>
+                        <div class="textarea-wrapper">
+                            <textarea name="v4" placeholder="Escreva sua resposta aqui..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">5</span>
+                            Qual foi a primeira coisa que Jun fez quando a sua semente não cresceu?
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="radio" id="v5a" name="v5" value="a" class="option-input">
+                                <label for="v5a" class="option-label">A) Ele construiu uma vedação à volta do seu
+                                    vaso.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v5b" name="v5" value="b" class="option-input">
+                                <label for="v5b" class="option-label">B) Ele regou a semente mais vezes.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v5c" name="v5" value="c" class="option-input">
+                                <label for="v5c" class="option-label">C) Ele queixou-se aos pais.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v5d" name="v5" value="d" class="option-input">
+                                <label for="v5d" class="option-label">D) Ele tornou a plantar a semente num outro
+                                    vaso.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">6</span>
+                            Porque é que as crianças se riram de Jun? Usa o que aconteceu na história para justificares
+                            a
+                            tua resposta.
+                        </div>
+                        <div class="textarea-wrapper">
+                            <textarea name="v6" placeholder="Escreva sua resposta aqui..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">7</span>
+                            Na tua opinião, porque é que os pais de Jun lhe disseram para levar o vaso vazio ao palácio?
+                        </div>
+                        <div class="textarea-wrapper">
+                            <textarea name="v7" placeholder="Escreva sua resposta aqui..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">8</span>
+                            Porque é que o Imperador ficou mais carrancudo ao olhar para o vaso de Jun?
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="radio" id="v8a" name="v8" value="a" class="option-input">
+                                <label for="v8a" class="option-label">A) Estava preocupado com o concurso.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v8b" name="v8" value="b" class="option-input">
+                                <label for="v8b" class="option-label">B) Pensava que o vaso de Jun não estava
+                                    suficientemente brilhante.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v8c" name="v8" value="c" class="option-input">
+                                <label for="v8c" class="option-label">C) Estava a esconder o que pensava.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v8d" name="v8" value="d" class="option-input">
+                                <label for="v8d" class="option-label">D) Não sabia porquê é que Jun lá estava.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">9</span>
+                            Porque é que o Jun disse «Desculpe» ao Imperador?
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="radio" id="v9a" name="v9" value="a" class="option-input">
+                                <label for="v9a" class="option-label">A) Ele tinha feito batota no concurso.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v9b" name="v9" value="b" class="option-input">
+                                <label for="v9b" class="option-label">B) Ele não queria ser um Imperador.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v9c" name="v9" value="c" class="option-input">
+                                <label for="v9c" class="option-label">C) Ele pensava que tinha desapontado o
+                                    Imperador.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v9d" name="v9" value="d" class="option-input">
+                                <label for="v9d" class="option-label">D) Ele tinha regado a sua semente demasiadas
+                                    vezes.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">10</span>
+                            Porque é que as plantas cresceram nos vasos das outras crianças?
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="radio" id="v10a" name="v10" value="a" class="option-input">
+                                <label for="v10a" class="option-label">A) As outras crianças usaram terra
+                                    melhor.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v10b" name="v10" value="b" class="option-input">
+                                <label for="v10b" class="option-label">B) As outras crianças vigiaram os seus
+                                    vasos.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v10c" name="v10" value="c" class="option-input">
+                                <label for="v10c" class="option-label">C) As suas sementes foram protegidas por
+                                    vedações.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="v10d" name="v10" value="d" class="option-input">
+                                <label for="v10d" class="option-label">D) As suas sementes foram trocadas por outras
+                                    novas.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">11</span>
+                            Jun teve diferentes sentimentos durante a história. Explique porque é que Jun se sentiu:
+                        </div>
+                        <div class="textarea-wrapper">
+                            <label
+                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Esperançoso:</label>
+                            <textarea name="v11_1" placeholder="Escreva sua resposta aqui..."
+                                style="margin-bottom: 15px;"></textarea>
+
+                            <label
+                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Intrigado:</label>
+                            <textarea name="v11_2" placeholder="Escreva sua resposta aqui..."
+                                style="margin-bottom: 15px;"></textarea>
+
+                            <label
+                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Derrotado:</label>
+                            <textarea name="v11_3" placeholder="Escreva sua resposta aqui..."></textarea>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button type="button" class="btn-custom btn-primary-custom" onclick="switchTab('polvo')">
+                            Próxima Parte: O Incrível Polvo <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- BLOCO 2: O INCRÍVEL POLVO -->
+            <div id="polvo" class="content-card">
+                <div class="story-section">
+                    <h3>O Incrível Polvo</h3>
+
+                    <!-- Parágrafo 1-2 + Imagem do Polvo no Esconderijo -->
+                    <div
+                        style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                        <div style="flex: 1; position: relative; z-index: 1; padding-left: 56px;">
+                            <p style="padding-left: 0;">Os polvos são animais marinhos, têm um corpo arredondado, olhos
+                                salientes e oito braços compridos.
+                                Têm braços muito fortes, com fileiras de ventosas muito potentes. Vivem em todos os
+                                oceanos do
+                                mundo, mas gostam especialmente de águas mornas e tropicais. Ficam muitas vezes no fundo
+                                do oceano,
+                                onde conseguem encontrar os seus alimentos preferidos. Gostam de comer caranguejos,
+                                camarão e
+                                pequenos peixes. Capturam as suas presas com as ventosas e depois levam a comida à boca.
+                            </p>
+                            <p style="padding-left: 0;">Os polvos vivem habitualmente sozinhos em esconderijos
+                                construídos nas rochas. Por vezes, os polvos
+                                chegam mesmo a fazer nos seus esconderijos «portas» de rocha que podem fechar-se para os
+                                manter em
+                                segurança.</p>
+                        </div>
+                        <div style="flex-shrink: 0; max-width: 320px;">
+                            <img src="images/image10.png" alt="Um polvo em frente ao seu esconderijo"
+                                style="width: 100%; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); transition: transform 0.3s ease;"
+                                onmouseover="this.style.transform='scale(1.03)'"
+                                onmouseout="this.style.transform='scale(1)'">
+                        </div>
+                    </div>
+
+                    <!-- Parágrafo 3-4 + Polvo nas conchas -->
+                    <div
+                        style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                        <div style="flex-shrink: 0; max-width: 320px;">
+                            <img src="images/image11.png" alt="Um polvo a esconder-se debaixo de conchas"
+                                style="width: 100%; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); transition: transform 0.3s ease;"
+                                onmouseover="this.style.transform='scale(1.03)'"
+                                onmouseout="this.style.transform='scale(1)'">
+                        </div>
+                        <div style="flex: 1; position: relative; z-index: 1;">
+                            <p>Os polvos conseguem esconder-se escorregando por fendas nas rochas ou no coral. Na
+                                verdade, não têm
+                                nenhum osso e o seu corpo é mole. Sem ossos, os polvos podem deslizar como a água e
+                                fazer com que o
+                                seu corpo todo caiba em espaços muito pequenos. São conhecidos por aparecerem em lugares
+                                onde
+                                ninguém está à espera. Já houve polvos que foram encontrados dentro de conchas, de
+                                equipamento de
+                                cientistas e de garrafas deixadas no mar.</p>
+                            <p>Às vezes, os polvos chegam a utilizar conchas para se esconderem. Apanham as conchas com
+                                as suas
+                                ventosas. Depois, enrolam os braços à volta do corpo com as conchas viradas para fora.
+                                Ao passarem,
+                                os predadores ficam a pensar que o polvo não passa de um monte de conchas velhas.</p>
+                        </div>
+                    </div>
+
+                    <!-- Seção "Aprender a fazer coisas" + Frieda + Squirt -->
+                    <p style="padding-left: 56px;"><strong
+                            style="color: var(--azul-escola); font-size: 1.05rem;">Aprender a fazer coisas</strong></p>
+                    <div
+                        style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                        <div style="flex: 1; position: relative; z-index: 1; padding-left: 56px;">
+                            <p style="padding-left: 0;">Um polvo chamado Frieda vivia num aquário na Alemanha. Depois de
+                                ver os seus tratadores a
+                                desenroscarem os frascos que continham a sua comida, também ela aprendeu a abrir os
+                                frascos.
+                                Pressionando a tampa contra o seu corpo e agarrando o frasco com os braços, torcia o seu
+                                corpo sem
+                                ossos para desenroscar a tampa. Só abria os frascos que continham a sua comida
+                                preferida, como
+                                caranguejos e camarão. Ela ignorava os frascos que tinham o mesmo peixe de sempre.</p>
+                            <p style="padding-left: 0;">Num centro marinho nos Estados Unidos, um polvo chamado Squirt
+                                aprendeu a pintar. Conseguia fazer
+                                isso puxando alavancas que lançavam a tinta para uma tela. A «arte» era depois vendida
+                                para
+                                conseguir dinheiro para ajudar na manutenção do tanque do polvo.</p>
+                        </div>
+                        <div
+                            style="flex-shrink: 0; max-width: 280px; display: flex; flex-direction: column; gap: 16px;">
+                            <div>
+                                <img src="images/image12.png" alt="Frieda a abrir os frascos"
+                                    style="width: 100%; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); transition: transform 0.3s ease;"
+                                    onmouseover="this.style.transform='scale(1.03)'"
+                                    onmouseout="this.style.transform='scale(1)'">
+                            </div>
+                            <div>
+                                <img src="images/image13.png" alt="Squirt a fazer arte"
+                                    style="width: 100%; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); transition: transform 0.3s ease;"
+                                    onmouseover="this.style.transform='scale(1.03)'"
+                                    onmouseout="this.style.transform='scale(1)'">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seção "Manter os polvos ocupados" + Sammy -->
+                    <p style="padding-left: 56px;"><strong style="color: var(--azul-escola); font-size: 1.05rem;">Manter
+                            os polvos ocupados</strong></p>
+                    <div
+                        style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 20px; position: relative;">
+                        <div style="flex-shrink: 0; max-width: 320px;">
+                            <img src="images/image14.png" alt="Um polvo com um brinquedo no seu tanque"
+                                style="width: 100%; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); transition: transform 0.3s ease;"
+                                onmouseover="this.style.transform='scale(1.03)'"
+                                onmouseout="this.style.transform='scale(1)'">
+                        </div>
+                        <div style="flex: 1; position: relative; z-index: 1;">
+                            <p>As pessoas gostam de ver os polvos em aquários que mostrem os seus ambientes naturais. No
+                                entanto, os
+                                polvos aborrecem-se facilmente, e, por isso, os funcionários do aquário têm de inventar
+                                maneiras de
+                                manter os seus polvos ocupados. Dão aos polvos, por exemplo, puzzles e brinquedos que
+                                podem ser
+                                desmontados.</p>
+                            <p>Num aquário nos Estados Unidos, um polvo chamado Sammy gostava de brincar com uma bola em
+                                plástico
+                                que se conseguia enroscar ao rodar as duas metades. O seu tratador punha comida dentro
+                                da bola e
+                                Sammy abria a bola e depois voltava a enroscá-la quando acabava de comer.</p>
+                        </div>
+                    </div>
+
+                    <!-- Seção "Reconhecer os tratadores" + Tratadora com polvo -->
+                    <p style="padding-left: 56px;"><strong
+                            style="color: var(--azul-escola); font-size: 1.05rem;">Reconhecer os tratadores</strong></p>
+                    <div
+                        style="display: flex; gap: 24px; align-items: flex-start; margin-bottom: 8px; position: relative;">
+                        <div style="flex: 1; position: relative; z-index: 1; padding-left: 56px;">
+                            <p style="padding-left: 0;">Para além dos brinquedos e dos puzzles, os polvos gostam quando
+                                os seus tratadores passam algum tempo
+                                a fazer-lhes festas e a brincar com eles. Quando os polvos veem os seus tratadores
+                                chegando, ficam
+                                vermelhos para mostrarem que estão muito felizes. Também podem cumprimentar os seus
+                                tratadores
+                                ficando em pé, apoiados nos braços e inclinando-se para a frente. Já se ouviu falar de
+                                polvos que
+                                saltam com as suas «pernas» traseiras, enquanto abanam os seus braços para chamar a
+                                atenção dos
+                                tratadores.</p>
+                            <p style="padding-left: 0;">Os polvos gostam tanto de companhia como de comida. Quando
+                                acabam de comer, os polvos tentam alcançar
+                                o tratador com um braço, depois outro, enrolando-os à volta das mãos e dos braços do seu
+                                tratador.
+                                Polvos e tratadores estendem os seus braços e os polvos agarram-se suavemente aos seus
+                                treinadores
+                                com as suas ventosas.</p>
+                        </div>
+                        <div style="flex-shrink: 0; max-width: 300px;">
+                            <img src="images/image15.png" alt="Um polvo a agarrar os braços da sua tratadora"
+                                style="width: 100%; border-radius: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.15); transition: transform 0.3s ease;"
+                                onmouseover="this.style.transform='scale(1.03)'"
+                                onmouseout="this.style.transform='scale(1)'">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Questions Bloco 2 -->
+                <form id="form-polvo">
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">1</span>
+                            Segundo o texto, quais das afirmações seguintes sobre os polvos são verdadeiras? (Selecione
+                            todas as corretas)
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="checkbox" id="p1a" class="checkbox-input">
+                                <label for="p1a" class="option-label">Têm corpos arredondados.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="p1b" class="checkbox-input">
+                                <label for="p1b" class="option-label">Têm oito braços compridos.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="p1c" class="checkbox-input">
+                                <label for="p1c" class="option-label">Vivem apenas nas zonas frias do oceano.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="p1d" class="checkbox-input">
+                                <label for="p1d" class="option-label">Gostam de comer caranguejos e pequenos
+                                    peixes.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="p1e" class="checkbox-input">
+                                <label for="p1e" class="option-label">Apanham a comida com as suas bocas.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">2</span>
+                            O que é que os polvos utilizam para fazer portas nos seus esconderijos?
+                        </div>
+                        <div class="textarea-wrapper">
+                            <textarea name="p2" placeholder="Escreva sua resposta aqui..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">3</span>
+                            No texto, afirma-se que os polvos são «mestres do disfarce». O que é que isso quer dizer?
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="radio" id="p3a" name="p3" value="a" class="option-input">
+                                <label for="p3a" class="option-label">A) Conseguem ficar parecidos com outra coisa
+                                    qualquer.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="p3b" name="p3" value="b" class="option-input">
+                                <label for="p3b" class="option-label">B) São nadadores muito rápidos.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="p3c" name="p3" value="c" class="option-input">
+                                <label for="p3c" class="option-label">C) Conseguem lançar tinta escura.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="p3d" name="p3" value="d" class="option-input">
+                                <label for="p3d" class="option-label">D) Podem ser de tamanhos diferentes.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">4</span>
+                            Os polvos não têm ossos. O que é que isso lhes permite fazer?
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="radio" id="p4a" name="p4" value="a" class="option-input">
+                                <label for="p4a" class="option-label">A) Esconderem-se de outros polvos.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="p4b" name="p4" value="b" class="option-input">
+                                <label for="p4b" class="option-label">B) Agarrarem-se bem às rochas.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="p4c" name="p4" value="c" class="option-input">
+                                <label for="p4c" class="option-label">C) Caberem em espaços muito pequenos.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="p4d" name="p4" value="d" class="option-input">
+                                <label for="p4d" class="option-label">D) Ficarem parecidos com algas.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">5</span>
+                            Indica duas maneiras de os polvos fugirem dos seus predadores.
+                        </div>
+                        <div class="textarea-wrapper">
+                            <label
+                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Maneira
+                                1:</label>
+                            <textarea name="p5_1" placeholder="Escreva sua resposta aqui..."
+                                style="margin-bottom: 15px;"></textarea>
+
+                            <label
+                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Maneira
+                                2:</label>
+                            <textarea name="p5_2" placeholder="Escreva sua resposta aqui..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">6</span>
+                            O que é que o polvo Frieda aprendeu a fazer?
+                        </div>
+                        <div class="textarea-wrapper">
+                            <textarea name="p6" placeholder="Escreva sua resposta aqui..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">7</span>
+                            O que é que o polvo Squirt aprendeu a fazer?
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="radio" id="p7a" name="p7" value="a" class="option-input">
+                                <label for="p7a" class="option-label">A) A fazer desenhos do aquário.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="p7b" name="p7" value="b" class="option-input">
+                                <label for="p7b" class="option-label">B) A puxar alavancas para lançar tinta para uma
+                                    tela.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">8</span>
+                            Qual é o brinquedo com que Sammy gosta de brincar?
+                        </div>
+                        <div class="textarea-wrapper">
+                            <textarea name="p8" placeholder="Escreva sua resposta aqui..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">9</span>
+                            Quais são duas coisas que os polvos fazem para mostrarem que ficam contentes ao verem os
+                            seus
+                            tratadores?
+                        </div>
+                        <div class="textarea-wrapper">
+                            <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Ação
+                                1:</label>
+                            <textarea name="p9_1" placeholder="Escreva sua resposta aqui..."
+                                style="margin-bottom: 15px;"></textarea>
+
+                            <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Ação
+                                2:</label>
+                            <textarea name="p9_2" placeholder="Escreva sua resposta aqui..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">10</span>
+                            Os polvos gostam que os seus tratadores lhes façam festas. O que é que os polvos fazem que
+                            mostra isso?
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="radio" id="p10a" name="p10" value="a" class="option-input">
+                                <label for="p10a" class="option-label">A) Resolvem puzzles com os seus
+                                    tratadores.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="p10b" name="p10" value="b" class="option-input">
+                                <label for="p10b" class="option-label">B) Saltam quando estão com fome.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="p10c" name="p10" value="c" class="option-input">
+                                <label for="p10c" class="option-label">C) Tentam alcançar os tratadores e agarram os
+                                    seus
+                                    braços.</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="p10d" name="p10" value="d" class="option-input">
+                                <label for="p10d" class="option-label">D) Comem tudo até ao fim.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-container">
+                        <div class="question-title">
+                            <span class="question-number">11</span>
+                            Tendo em conta o que leste no texto, pensas que os aquários são bons para os polvos?
+                        </div>
+                        <div class="options-group">
+                            <div class="option-item">
+                                <input type="radio" id="p11sim" name="p11" value="sim" class="option-input">
+                                <label for="p11sim" class="option-label">Sim</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" id="p11nao" name="p11" value="nao" class="option-input">
+                                <label for="p11nao" class="option-label">Não</label>
+                            </div>
+                        </div>
+                        <div class="textarea-wrapper" style="margin-top: 20px;">
+                            <label
+                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Apresenta
+                                uma razão para justificares a tua resposta:</label>
+                            <textarea name="p11_reason" placeholder="Escreva sua resposta aqui..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Completion Message -->
+            <div class="completion-message" id="completionMessage">
+                <i class="fas fa-check-circle"></i>
+                <h3>Parabéns!</h3>
+                <p>Você completou o simulado PIRLS com sucesso!</p>
+            </div>
+
+            <!-- Button Group -->
+            <div class="button-group">
+                <button class="btn-custom btn-secondary-custom" onclick="resetForm()">
+                    <i class="fas fa-redo"></i> Limpar Respostas
+                </button>
+                <button class="btn-custom btn-primary-custom" onclick="submitQuiz()">
+                    <i class="fas fa-check"></i> Finalizar Simulado
+                </button>
+            </div>
+        </div> <!-- Fim do quiz-container -->
+    </div> <!-- Fim do container-main -->
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><i class="fas fa-graduation-cap"></i> Simulado PIRLS - Avaliação de Leitura</p>
+        <p>Escola Municipal Celestina Scolaro Foggiatto © 2026</p>
+    </div>
+
+    <script>
+        // Global State
+        let currentStudent = null;
+        let submissions = JSON.parse(localStorage.getItem('simulado_pirls_submissions')) || [];
+
+        // Question Specs for Teacher Panel
+        const questionSpecs = [
+            // Bloco 1
+            { id: 'v1', block: 'O Vaso Vazio', type: 'objective', num: 1, text: 'Porque é que o Imperador organizou o concurso?', correct: 'b', options: { a: 'A) para ensinar coisas sobre plantas às crianças', b: 'B) para escolher um novo Imperador', c: 'C) para mostrar como ele era grandioso', d: 'D) para encontrar a melhor espécie de planta' } },
+            { id: 'v2', block: 'O Vaso Vazio', type: 'subjective', num: 2, text: 'O que é que cada criança recebeu do Imperador?' },
+            { id: 'v3', block: 'O Vaso Vazio', type: 'objective', num: 3, text: 'Porque se chamou «oportunidade preciosa» a cada semente?', correct: 'a', options: { a: 'A) Cada semente permitia ganhar o concurso.', b: 'B) Cada semente era real e muito dispendiosa.', c: 'C) Cada semente ia transformar-se numa linda planta.', d: 'D) Cada semente permitia tornar-se no melhor jardineiro.' } },
+            { id: 'v4', block: 'O Vaso Vazio', type: 'subjective', num: 4, text: 'O que é que mostra que Jun era o melhor jardineiro da aldeia?' },
+            { id: 'v5', block: 'O Vaso Vazio', type: 'objective', num: 5, text: 'Qual foi a primeira coisa que Jun fez quando a sua semente não cresceu?', correct: 'd', options: { a: 'A) Ele construiu uma vedação à volta do seu vaso.', b: 'B) Ele regou a semente mais vezes.', c: 'C) Ele queixou-se aos pais.', d: 'D) Ele tornou a plantar a semente num outro vaso.' } },
+            { id: 'v6', block: 'O Vaso Vazio', type: 'subjective', num: 6, text: 'Porque é que as crianças se riram de Jun? Usa o que aconteceu na história para justificares a tua resposta.' },
+            { id: 'v7', block: 'O Vaso Vazio', type: 'subjective', num: 7, text: 'Na tua opinião, porque é que os pais de Jun lhe disseram para levar o vaso vazio ao palácio?' },
+            { id: 'v8', block: 'O Vaso Vazio', type: 'objective', num: 8, text: 'Porque é que o Imperador ficou mais carrancudo ao olhar para o vaso de Jun?', correct: 'c', options: { a: 'A) Estava preocupado com o concurso.', b: 'B) Pensava que o vaso de Jun não estava suficientemente brilhante.', c: 'C) Estava a esconder o que pensava.', d: 'D) Não sabia porquê é que Jun lá estava.' } },
+            { id: 'v9', block: 'O Vaso Vazio', type: 'objective', num: 9, text: 'Porque é que o Jun disse «Desculpe» ao Imperador?', correct: 'c', options: { a: 'A) Ele tinha feito batota no concurso.', b: 'B) Ele não queria ser um Imperador.', c: 'C) Ele pensava que tinha desapontado o Imperador.', d: 'D) Ele tinha regado a sua semente demasiadas vezes.' } },
+            { id: 'v10', block: 'O Vaso Vazio', type: 'objective', num: 10, text: 'Porque é que as plantas cresceram nos vasos das outras crianças?', correct: 'd', options: { a: 'A) As outras crianças usaram terra melhor.', b: 'B) As outras crianças vigiaram os seus vasos.', c: 'C) As suas sementes foram protegidas por vedações.', d: 'D) As suas sementes foram trocadas por outras novas.' } },
+            { id: 'v11_1', block: 'O Vaso Vazio', type: 'subjective', num: 11, text: 'Explique porque é que Jun se sentiu: Esperançoso:' },
+            { id: 'v11_2', block: 'O Vaso Vazio', type: 'subjective', num: 11, text: 'Explique porque é que Jun se sentiu: Intrigado:' },
+            { id: 'v11_3', block: 'O Vaso Vazio', type: 'subjective', num: 11, text: 'Explique porque é que Jun se sentiu: Derrotado:' },
+
+            // Bloco 2
+            { id: 'p1', block: 'O Incrível Polvo', type: 'checkbox_group', num: 1, text: 'Segundo o texto, quais das afirmações seguintes sobre os polvos são verdadeiras? (Selecione todas as corretas)', correct: ['p1a', 'p1b', 'p1d'], options: { p1a: 'Têm corpos arredondados.', p1b: 'Têm oito braços compridos.', p1c: 'Vivem apenas nas zonas frias do oceano.', p1d: 'Gostam de comer caranguejos e pequenos peixes.', p1e: 'Apanham a comida com as suas bocas.' } },
+            { id: 'p2', block: 'O Incrível Polvo', type: 'subjective', num: 2, text: 'O que é que os polvos utilizam para fazer portas nos seus esconderijos?' },
+            { id: 'p3', block: 'O Incrível Polvo', type: 'objective', num: 3, text: 'No texto, afirma-se que os polvos são «mestres do disfarce». O que é que isso quer dizer?', correct: 'a', options: { a: 'A) Conseguem ficar parecidos com outra coisa qualquer.', b: 'B) São nadadores muito rápidos.', c: 'C) Conseguem lançar tinta escura.', d: 'D) Podem ser de tamanhos diferentes.' } },
+            { id: 'p4', block: 'O Incrível Polvo', type: 'objective', num: 4, text: 'Os polvos não têm ossos. O que é que isso lhes permite fazer?', correct: 'c', options: { a: 'A) Esconderem-se de outros polvos.', b: 'B) Agarrarem-se bem às rochas.', c: 'C) Caberem em espaços muito pequenos.', d: 'D) Ficarem parecidos com algas.' } },
+            { id: 'p5_1', block: 'O Incrível Polvo', type: 'subjective', num: 5, text: 'Indica duas maneiras de os polvos fugirem dos seus predadores. Maneira 1:' },
+            { id: 'p5_2', block: 'O Incrível Polvo', type: 'subjective', num: 5, text: 'Indica duas maneiras de os polvos fugirem dos seus predadores. Maneira 2:' },
+            { id: 'p6', block: 'O Incrível Polvo', type: 'subjective', num: 6, text: 'O que é que o polvo Frieda aprendeu a fazer?' },
+            { id: 'p7', block: 'O Incrível Polvo', type: 'objective', num: 7, text: 'O que é que o polvo Squirt aprendeu a fazer?', correct: 'b', options: { a: 'A) A fazer desenhos do aquário.', b: 'B) A puxar alavancas para lançar tinta para uma tela.' } },
+            { id: 'p8', block: 'O Incrível Polvo', type: 'subjective', num: 8, text: 'Qual é o brinquedo com que Sammy gosta de brincar?' },
+            { id: 'p9_1', block: 'O Incrível Polvo', type: 'subjective', num: 9, text: 'Quais são duas coisas que os polvos fazem para mostrarem que ficam contentes ao verem os seus tratadores? Ação 1:' },
+            { id: 'p9_2', block: 'O Incrível Polvo', type: 'subjective', num: 9, text: 'Quais são duas coisas que os polvos fazem para mostrarem que ficam contentes ao verem os seus tratadores? Ação 2:' },
+            { id: 'p10', block: 'O Incrível Polvo', type: 'objective', num: 10, text: 'Os polvos gostam que os seus tratadores lhes façam festas. O que é que os polvos fazem que mostra isso?', correct: 'c', options: { a: 'A) Resolvem puzzles com os seus tratadores.', b: 'B) Saltam quando estão com fome.', c: 'C) Tentam alcançar os tratadores e agarram os seus braços.', d: 'D) Comem tudo até ao fim.' } },
+            { id: 'p11', block: 'O Incrível Polvo', type: 'objective_opinion', num: 11, text: 'Tendo em conta o que leste no texto, pensas que os aquários são bons para os polvos?', options: { sim: 'Sim', nao: 'Não' } },
+            { id: 'p11_reason', block: 'O Incrível Polvo', type: 'subjective', num: 11, text: 'Justificativa da resposta (Aquários são bons para os polvos?):' }
+        ];
+
+        // Tab switching
+        function switchTab(tabName, event) {
+            const cards = document.querySelectorAll('#quiz-container .content-card');
+            const buttons = document.querySelectorAll('.tab-btn');
+
+            cards.forEach(card => card.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+
+            if (event) {
+                event.currentTarget.classList.add('active');
+            } else {
+                const targetBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabName));
+                if (targetBtn) targetBtn.classList.add('active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updateProgress();
+        }
+
+        // Iniciar Simulado (após preencher dados do aluno)
+        function startQuiz(event) {
+            event.preventDefault();
+            const name = document.getElementById('student-name').value.trim();
+            const grade = document.getElementById('student-grade').value;
+            const className = document.getElementById('student-class').value;
+
+            if (!name || !grade || !className) {
+                alert('Por favor, preencha todos os campos para iniciar.');
+                return;
+            }
+
+            currentStudent = { name, grade, class: className };
+
+            // Atualizar cabeçalho
+            document.getElementById('badge-name').textContent = name;
+            document.getElementById('badge-grade').textContent = grade;
+            document.getElementById('badge-class').textContent = className;
+            document.getElementById('student-badge').style.display = 'inline-block';
+
+            // Alternar telas
+            document.getElementById('registration-card').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('teacher-panel').style.display = 'none';
+
+            // Resetar respostas anteriores na interface
+            document.getElementById('form-vaso').reset();
+            document.getElementById('form-polvo').reset();
+            document.getElementById('completionMessage').classList.remove('show');
+            document.querySelector('.button-group').style.display = 'flex';
+
+            switchTab('vaso');
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const allInputs = document.querySelectorAll('#quiz-container input[type="radio"], #quiz-container input[type="checkbox"], #quiz-container textarea');
+            const filledInputs = Array.from(allInputs).filter(input => {
+                if (input.type === 'radio' || input.type === 'checkbox') {
+                    return input.checked;
+                } else if (input.type === 'textarea' || input.tagName === 'TEXTAREA') {
+                    return input.value.trim() !== '';
+                }
+                return false;
+            });
+
+            const percentage = Math.round((filledInputs.length / allInputs.length) * 100);
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = percentage + '%';
+        }
+
+        // Add event listeners for progress tracking
+        document.addEventListener('change', updateProgress);
+        document.addEventListener('input', updateProgress);
+
+        // Submit quiz
+        function submitQuiz() {
+            if (!currentStudent) {
+                alert('Sessão expirada. Por favor, identifique-se novamente.');
+                startNewStudent();
+                return;
+            }
+
+            const allInputs = document.querySelectorAll('#quiz-container input[type="radio"], #quiz-container input[type="checkbox"], #quiz-container textarea');
+            const filledInputs = Array.from(allInputs).filter(input => {
+                if (input.type === 'radio' || input.type === 'checkbox') {
+                    return input.checked;
+                } else if (input.type === 'textarea' || input.tagName === 'TEXTAREA') {
+                    return input.value.trim() !== '';
+                }
+                return false;
+            });
+
+            if (filledInputs.length === 0) {
+                alert('Por favor, responda pelo menos uma pergunta antes de finalizar!');
+                return;
+            }
+
+            // Verificar se há perguntas sem resposta
+            if (filledInputs.length < allInputs.length) {
+                if (!confirm('Você deixou algumas perguntas sem responder. Deseja finalizar o simulado mesmo assim?')) {
+                    return;
+                }
+            }
+
+            // Coleta de todas as respostas
+            const answers = {
+                v1: document.querySelector('input[name="v1"]:checked')?.value || '',
+                v2: document.querySelector('textarea[name="v2"]').value.trim(),
+                v3: document.querySelector('input[name="v3"]:checked')?.value || '',
+                v4: document.querySelector('textarea[name="v4"]').value.trim(),
+                v5: document.querySelector('input[name="v5"]:checked')?.value || '',
+                v6: document.querySelector('textarea[name="v6"]').value.trim(),
+                v7: document.querySelector('textarea[name="v7"]').value.trim(),
+                v8: document.querySelector('input[name="v8"]:checked')?.value || '',
+                v9: document.querySelector('input[name="v9"]:checked')?.value || '',
+                v10: document.querySelector('input[name="v10"]:checked')?.value || '',
+                v11_1: document.querySelector('textarea[name="v11_1"]').value.trim(),
+                v11_2: document.querySelector('textarea[name="v11_2"]').value.trim(),
+                v11_3: document.querySelector('textarea[name="v11_3"]').value.trim(),
+
+                p1a: document.getElementById('p1a').checked,
+                p1b: document.getElementById('p1b').checked,
+                p1c: document.getElementById('p1c').checked,
+                p1d: document.getElementById('p1d').checked,
+                p1e: document.getElementById('p1e').checked,
+
+                p2: document.querySelector('textarea[name="p2"]').value.trim(),
+                p3: document.querySelector('input[name="p3"]:checked')?.value || '',
+                p4: document.querySelector('input[name="p4"]:checked')?.value || '',
+                p5_1: document.querySelector('textarea[name="p5_1"]').value.trim(),
+                p5_2: document.querySelector('textarea[name="p5_2"]').value.trim(),
+                p6: document.querySelector('textarea[name="p6"]').value.trim(),
+                p7: document.querySelector('input[name="p7"]:checked')?.value || '',
+                p8: document.querySelector('textarea[name="p8"]').value.trim(),
+                p9_1: document.querySelector('textarea[name="p9_1"]').value.trim(),
+                p9_2: document.querySelector('textarea[name="p9_2"]').value.trim(),
+                p10: document.querySelector('input[name="p10"]:checked')?.value || '',
+                p11: document.querySelector('input[name="p11"]:checked')?.value || '',
+                p11_reason: document.querySelector('textarea[name="p11_reason"]').value.trim()
+            };
+
+            // Cálculo dos acertos nas questões objetivas (11 pontos máx)
+            let score = 0;
+            if (answers.v1 === 'b') score++;
+            if (answers.v3 === 'a') score++;
+            if (answers.v5 === 'd') score++;
+            if (answers.v8 === 'c') score++;
+            if (answers.v9 === 'c') score++;
+            if (answers.v10 === 'd') score++;
+
+            // Q1 Polvo (Multi-seleção): A, B, D devem ser verdadeiros, C, E falsos
+            if (answers.p1a && answers.p1b && answers.p1d && !answers.p1c && !answers.p1e) score++;
+
+            if (answers.p3 === 'a') score++;
+            if (answers.p4 === 'c') score++;
+            if (answers.p7 === 'b') score++;
+            if (answers.p10 === 'c') score++;
+
+            // Criar objeto de submissão
+            const submission = {
+                id: Date.now(),
+                student: currentStudent,
+                answers: answers,
+                score: score,
+                maxScore: 11,
+                date: new Date().toLocaleString('pt-BR')
+            };
+
+            // Salvar no localStorage
+            submissions.push(submission);
+            localStorage.setItem('simulado_pirls_submissions', JSON.stringify(submissions));
+
+            // Exibir mensagem de conclusão estilizada com o score
+            const compMsg = document.getElementById('completionMessage');
+            const pct = Math.round((score / 11) * 100);
+            const emoji = score >= 9 ? '🏆' : score >= 6 ? '⭐' : '📚';
+            compMsg.innerHTML = `
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Parabéns, ${currentStudent.name}!</h3>
+                <p>Você completou o Simulado PIRLS com sucesso!</p>
+                <div style="background: linear-gradient(135deg, var(--azul-escola) 0%, #7c3aed 100%); color: white; padding: 20px 32px; border-radius: 16px; display: inline-block; margin: 16px 0; box-shadow: 0 8px 32px rgba(30,64,175,0.4);">
+                    <span style="font-size: 0.85rem; font-weight: 700; display: block; text-transform: uppercase; letter-spacing: 1px; opacity: 0.85;">Acertos Objetivos ${emoji}</span>
+                    <strong style="font-size: 2.6rem; font-weight: 900; line-height: 1.1;">${score} <span style="font-size: 1.1rem; font-weight: 500; opacity: 0.8;">de 11</span></strong>
+                    <div style="height:8px; background:rgba(255,255,255,0.2); border-radius:4px; margin-top:10px; overflow:hidden;">
+                        <div style="height:100%; width:${pct}%; background:rgba(255,255,255,0.85); border-radius:4px; transition:width 1s ease;"></div>
+                    </div>
+                    <span style="font-size:0.8rem; opacity:0.8; margin-top:4px; display:block;">${pct}% de aproveitamento</span>
+                </div>
+                <p style="color: var(--texto-medio); margin-bottom: 20px; font-size: 0.95rem;">As respostas dissertativas foram salvas e serão avaliadas pelo professor.</p>
+                <button class="btn-custom btn-primary-custom" onclick="startNewStudent()" style="padding: 12px 32px;">
+                    <i class="fas fa-user-plus"></i> Registrar Próximo Aluno
+                </button>
+            `;
+            compMsg.classList.add('show');
+
+            // 🎉 Confetti!
+            launchConfetti();
+
+            // Ocultar os botões normais para evitar múltiplos envios
+            document.querySelector('.button-group').style.display = 'none';
+
+            window.scrollTo({ top: compMsg.offsetTop - 50, behavior: 'smooth' });
+        }
+
+
+        // Reset form
+        function resetForm() {
+            if (confirm('Tem certeza que deseja limpar todas as respostas deste simulado?')) {
+                document.getElementById('form-vaso').reset();
+                document.getElementById('form-polvo').reset();
+                document.getElementById('completionMessage').classList.remove('show');
+                updateProgress();
+            }
+        }
+
+        // Novo Simulado / Próximo Aluno
+        function startNewStudent() {
+            currentStudent = null;
+            document.getElementById('student-badge').style.display = 'none';
+            document.getElementById('form-registration').reset();
+
+            document.getElementById('registration-card').style.display = 'block';
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('teacher-panel').style.display = 'none';
+
+            document.getElementById('completionMessage').classList.remove('show');
+            document.querySelector('.button-group').style.display = 'flex';
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updateProgress();
+        }
+
+        /* ----------------------------------------------------
+           FUNÇÕES DO PAINEL DO PROFESSOR (RELATÓRIOS)
+        ---------------------------------------------------- */
+
+        // Modal de Senha
+        function openTeacherPanelAuth() {
+            document.getElementById('password-modal').style.display = 'flex';
+            document.getElementById('teacher-password').value = '';
+            document.getElementById('password-error').style.display = 'none';
+            document.getElementById('teacher-password').focus();
+        }
+
+        function closePasswordModal() {
+            document.getElementById('password-modal').style.display = 'none';
+        }
+
+        function checkTeacherPassword() {
+            const pwd = document.getElementById('teacher-password').value;
+            // Aceita pirls, 123 ou 1234 para facilidade de testes do usuário
+            if (pwd === 'pirls' || pwd === '123' || pwd === '1234') {
+                closePasswordModal();
+                showTeacherPanel();
+            } else {
+                document.getElementById('password-error').style.display = 'block';
+            }
+        }
+
+        // Abrir Painel
+        function showTeacherPanel() {
+            document.getElementById('registration-card').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('teacher-panel').style.display = 'block';
+            loadTeacherDashboard();
+            animateBars();
+        }
+
+
+        // Fechar Painel
+        function closeTeacherPanel() {
+            document.getElementById('teacher-panel').style.display = 'none';
+            if (currentStudent) {
+                document.getElementById('quiz-container').style.display = 'block';
+            } else {
+                document.getElementById('registration-card').style.display = 'block';
+            }
+        }
+
+        // Carregar Métricas e Rankings
+        function loadTeacherDashboard() {
+            submissions = JSON.parse(localStorage.getItem('simulado_pirls_submissions')) || [];
+
+            const total = submissions.length;
+            document.getElementById('stats-total').textContent = total;
+
+            const emptyMsg = '<div class="text-center py-5 text-muted" style="font-size:0.9rem;"><i class="fas fa-users" style="font-size:2rem;opacity:0.25;display:block;margin-bottom:12px;"></i>Nenhum dado registrado ainda.</div>';
+
+            if (total === 0) {
+                document.getElementById('stats-average').textContent = '—';
+                document.getElementById('stats-top-class').textContent = '—';
+                document.getElementById('stats-top-class-avg').textContent = '';
+                document.getElementById('stats-hit-rate').textContent = '—';
+                document.getElementById('class-ranking-container').innerHTML = emptyMsg;
+                document.getElementById('podium-container').innerHTML = emptyMsg;
+                document.getElementById('students-rank-list').innerHTML = '<div class="text-center py-4 text-muted" style="font-size:0.9rem;">Nenhum aluno registrado.</div>';
+                populateClassFilter();
+                return;
+            }
+
+            // Média Geral
+            const sum = submissions.reduce((acc, curr) => acc + curr.score, 0);
+            const average = (sum / total).toFixed(1);
+            const hitRate = Math.round((sum / (total * 11)) * 100);
+            document.getElementById('stats-average').textContent = `${average} / 11`;
+            document.getElementById('stats-hit-rate').textContent = `${hitRate}%`;
+
+            // Agrupamento por Turma/Série
+            const classData = {};
+            submissions.forEach(sub => {
+                const key = `${sub.student.grade} - ${sub.student.class}`;
+                if (!classData[key]) classData[key] = { sum: 0, count: 0 };
+                classData[key].sum += sub.score;
+                classData[key].count++;
+            });
+
+            // Calcular média das turmas e ordenar
+            const ranking = [];
+            for (const key in classData) {
+                ranking.push({
+                    className: key,
+                    average: classData[key].sum / classData[key].count,
+                    count: classData[key].count
+                });
+            }
+            ranking.sort((a, b) => b.average - a.average);
+
+            // Melhor turma
+            if (ranking.length > 0) {
+                document.getElementById('stats-top-class').textContent = ranking[0].className;
+                document.getElementById('stats-top-class-avg').textContent = `média ${ranking[0].average.toFixed(1)}/11`;
+            }
+
+            // === PÓDIO TOP 3 ALUNOS ===
+            const sortedStudents = [...submissions].sort((a, b) => b.score - a.score || b.id - a.id);
+            const top3 = sortedStudents.slice(0, 3);
+
+            const podiumOrder = [1, 0, 2]; // display order: 2nd, 1st, 3rd
+            const medals = ['🥇', '🥈', '🥉'];
+            const rankLabels = ['1º', '2º', '3º'];
+
+            let podiumHtml = '<div class="podium-wrapper">';
+            podiumOrder.forEach(i => {
+                if (!top3[i]) return;
+                const s = top3[i];
+                const initials = s.student.name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+                podiumHtml += `
+                    <div class="podium-item">
+                        <div class="podium-avatar rank-${i + 1}">
+                            ${initials}
+                            <span class="podium-medal">${medals[i]}</span>
+                        </div>
+                        <div class="podium-name" title="${s.student.name}">${s.student.name.split(' ')[0]}</div>
+                        <div class="podium-class">${s.student.grade} · ${s.student.class.replace('Turma ', 'T.')}</div>
+                        <div class="podium-block rank-${i + 1}">${s.score}<span style="font-size:0.7em;font-weight:500;">/11</span></div>
+                    </div>
+                `;
+            });
+            podiumHtml += '</div>';
+
+            // Legenda de pontuação abaixo do pódio
+            podiumHtml += `<div style="text-align:center; font-size:0.78rem; color:#bbb; margin-top:4px;">
+                ${top3.map((s, i) => `<span style="margin: 0 8px;">${medals[i]} ${s.student.name.split(' ')[0]} &mdash; ${s.score} acertos</span>`).join('')}
+            </div>`;
+
+            document.getElementById('podium-container').innerHTML = podiumHtml;
+
+            // === BARRAS DE TURMA ===
+            let rankingHtml = '<div class="row">';
+            ranking.forEach((item, idx) => {
+                const percentage = Math.round((item.average / 11) * 100);
+                const colors = ['#667eea,#764ba2', '#43c97e,#27ae60', '#f6c90e,#e8a500', '#ff6b6b,#dc3545', '#17a2b8,#0d7a8f'];
+                const grad = colors[idx % colors.length];
+                rankingHtml += `
+                    <div class="col-md-6">
+                    <div class="ranking-item">
+                        <div class="ranking-header">
+                            <span>
+                                <i class="fas fa-graduation-cap" style="color:#667eea; margin-right:6px;"></i>
+                                ${item.className}
+                                <span class="ranking-count">(${item.count} aluno${item.count > 1 ? 's' : ''})</span>
+                            </span>
+                            <span class="ranking-pct">${item.average.toFixed(1)}/11 &mdash; ${percentage}%</span>
+                        </div>
+                        <div class="ranking-bar-wrapper">
+                            <div class="ranking-bar" style="width:${percentage}%; background: linear-gradient(90deg, ${grad});"></div>
+                        </div>
+                    </div>
+                    </div>
+                `;
+            });
+            rankingHtml += '</div>';
+            document.getElementById('class-ranking-container').innerHTML = rankingHtml;
+
+            // Popular o Filtro de Turmas
+            populateClassFilter();
+
+            // Renderizar o Ranking de Alunos
+            renderStudentsTable();
+        }
+
+        // Preencher Dropdown de Filtro de Turmas
+        function populateClassFilter() {
+            const select = document.getElementById('filter-class');
+            const currentValue = select.value;
+            const classes = [...new Set(submissions.map(sub => `${sub.student.grade} - ${sub.student.class}`))].sort();
+            let optionsHtml = '<option value="">Todas turmas</option>';
+            classes.forEach(cls => { optionsHtml += `<option value="${cls}">${cls}</option>`; });
+            select.innerHTML = optionsHtml;
+            select.value = currentValue;
+        }
+
+        // Renderizar Ranking de Alunos (lista estilizada, ordenada por pontua\u00e7\u00e3o)
+        function renderStudentsTable() {
+            const search = document.getElementById('search-student').value.toLowerCase().trim();
+            const classFilter = document.getElementById('filter-class').value;
+            const listEl = document.getElementById('students-rank-list');
+
+            const filtered = submissions.filter(sub => {
+                const matchesSearch = sub.student.name.toLowerCase().includes(search);
+                const classKey = `${sub.student.grade} - ${sub.student.class}`;
+                const matchesClass = classFilter === '' || classKey === classFilter;
+                return matchesSearch && matchesClass;
+            });
+
+            if (filtered.length === 0) {
+                listEl.innerHTML = '<div class="text-center py-4 text-muted" style="font-size:0.9rem;">Nenhum aluno encontrado.</div>';
+                return;
+            }
+
+            // Rank global (posi\u00e7\u00e3o entre todos os alunos)
+            const allSorted = [...submissions].sort((a, b) => b.score - a.score || b.id - a.id);
+            const globalRankMap = {};
+            allSorted.forEach((sub, idx) => { globalRankMap[sub.id] = idx + 1; });
+
+            // Ordena filtrados por pontua\u00e7\u00e3o
+            filtered.sort((a, b) => b.score - a.score || b.id - a.id);
+
+            const medals = ['\ud83e\udd47', '\ud83e\udd48', '\ud83e\udd49'];
+
+            let html = '';
+            filtered.forEach((sub) => {
+                const globalRank = globalRankMap[sub.id];
+                const initials = sub.student.name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+                const pct = Math.round((sub.score / 11) * 100);
+                const isTop3 = globalRank <= 3;
+                const medal = medals[globalRank - 1] || '';
+                const scoreColor = sub.score >= 8 ? '#27ae60' : sub.score >= 5 ? '#667eea' : '#e74c3c';
+
+                html += `
+                    <div class="student-rank-row" onclick="viewStudentDetails(${sub.id})" title="Ver respostas de ${sub.student.name}">
+                        <div class="rank-number ${isTop3 ? 'top-3' : ''}">${medal || '#' + globalRank}</div>
+                        <div class="rank-avatar-small" style="background: linear-gradient(135deg, ${scoreColor}, ${scoreColor}cc);">
+                            ${initials}
+                        </div>
+                        <div class="rank-info">
+                            <div class="rank-student-name">${sub.student.name}</div>
+                            <div class="rank-student-meta">${sub.student.grade} &middot; ${sub.student.class} &middot; ${sub.date.split(' ')[0]}</div>
+                        </div>
+                        <div class="rank-score-badge">
+                            <div class="rank-score-number" style="color:${scoreColor}">${sub.score}</div>
+                            <div class="rank-score-total">/11</div>
+                            <div class="rank-score-bar">
+                                <div class="rank-score-bar-fill" style="width:${pct}%; background: linear-gradient(90deg, ${scoreColor}, ${scoreColor}cc);"></div>
+                            </div>
+                        </div>
+                        <button onclick="event.stopPropagation(); deleteSubmission(${sub.id}, event)"
+                            style="background:none; border:none; color:#ddd; cursor:pointer; padding:4px 6px; border-radius:6px; transition: color 0.2s; flex-shrink:0;"
+                            onmouseover="this.style.color='#dc3545'" onmouseout="this.style.color='#ddd'"
+                            title="Excluir">
+                            <i class="fas fa-trash" style="font-size:0.75rem;"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            listEl.innerHTML = html;
+        }
+
+        // Detalhes do Aluno Modal
+        function viewStudentDetails(submissionId) {
+            const sub = submissions.find(s => s.id === submissionId);
+            if (!sub) return;
+
+            document.getElementById('detail-student-name').textContent = sub.student.name;
+            document.getElementById('info-name').textContent = sub.student.name;
+            document.getElementById('info-date').textContent = sub.date;
+            document.getElementById('info-grade').textContent = sub.student.grade;
+            document.getElementById('info-class').textContent = sub.student.class;
+
+            const scoreBadge = document.getElementById('info-score');
+            scoreBadge.textContent = `${sub.score} / 11 acertos`;
+            scoreBadge.className = `badge ${sub.score >= 6 ? 'bg-success' : 'bg-danger'}`;
+
+            const container = document.getElementById('detail-questions-container');
+            let html = '';
+
+            questionSpecs.forEach(spec => {
+                let statusBadge = '';
+                let answerContent = '';
+
+                if (spec.type === 'objective') {
+                    const studentAnswer = sub.answers[spec.id] || 'Sem resposta';
+                    const isCorrect = studentAnswer === spec.correct;
+                    statusBadge = isCorrect
+                        ? `<span class="correct-badge"><i class="fas fa-check"></i> Correta</span>`
+                        : `<span class="incorrect-badge"><i class="fas fa-times"></i> Incorreta</span>`;
+
+                    const labelStudent = spec.options[studentAnswer] || studentAnswer;
+                    const labelCorrect = spec.options[spec.correct];
+
+                    answerContent = `
+                        <div style="margin-top: 5px;">
+                            <strong>Resposta do Aluno:</strong> <span style="color: ${isCorrect ? '#28a745' : '#dc3545'}; font-weight: 600;">${labelStudent}</span>
+                        </div>
+                        ${!isCorrect ? `<div style="font-size: 0.85rem; color: #666; margin-top: 3px;"><strong>Gabarito Correto:</strong> ${labelCorrect}</div>` : ''}
+                    `;
+                }
+                else if (spec.type === 'checkbox_group') {
+                    const valA = sub.answers.p1a;
+                    const valB = sub.answers.p1b;
+                    const valC = sub.answers.p1c;
+                    const valD = sub.answers.p1d;
+                    const valE = sub.answers.p1e;
+
+                    const isCorrect = (valA && valB && valD && !valC && !valE);
+                    statusBadge = isCorrect
+                        ? `<span class="correct-badge"><i class="fas fa-check"></i> Correta</span>`
+                        : `<span class="incorrect-badge"><i class="fas fa-times"></i> Incorreta</span>`;
+
+                    const markedList = [];
+                    if (valA) markedList.push('A (corpos arredondados)');
+                    if (valB) markedList.push('B (oito braços)');
+                    if (valC) markedList.push('C (zonas frias)');
+                    if (valD) markedList.push('D (caranguejos/peixes)');
+                    if (valE) markedList.push('E (bocas)');
+
+                    answerContent = `
+                        <div style="margin-top: 5px;">
+                            <strong>Opções marcadas pelo aluno:</strong> <span style="font-weight: 600;">${markedList.length > 0 ? markedList.join(', ') : 'Nenhuma'}</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: #666; margin-top: 3px;">
+                            <strong>Gabarito Correto:</strong> Marcadas apenas (A), (B) e (D).
+                        </div>
+                    `;
+                }
+                else if (spec.type === 'objective_opinion') {
+                    const studentAnswer = sub.answers[spec.id] || 'Sem resposta';
+                    const formattedAns = studentAnswer === 'sim' ? 'Sim' : (studentAnswer === 'nao' ? 'Não' : studentAnswer);
+                    answerContent = `
+                        <div style="margin-top: 5px;">
+                            <strong>Opção selecionada:</strong> <span style="font-weight: 600; color: #764ba2;">${formattedAns}</span>
+                        </div>
+                    `;
+                }
+                else {
+                    const studentAnswer = sub.answers[spec.id] || '';
+                    statusBadge = `<span class="badge bg-secondary" style="font-size: 0.75rem; padding: 3px 8px;">Dissertativa (Avaliação)</span>`;
+                    answerContent = `
+                        <div class="detail-answer-box">${studentAnswer ? studentAnswer : '<em>Aluno deixou esta resposta em branco.</em>'}</div>
+                    `;
+                }
+
+                html += `
+                    <div class="detail-question-card">
+                        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
+                            <span class="badge" style="background-color: rgba(118, 75, 162, 0.1); color: #764ba2; border: 1px solid rgba(118, 75, 162, 0.2); font-size: 0.75rem;">${spec.block} - Questão ${spec.num}</span>
+                            ${statusBadge}
+                        </div>
+                        <div class="detail-question-header">${spec.text}</div>
+                        ${answerContent}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            document.getElementById('student-detail-modal').style.display = 'flex';
+        }
+
+        function closeStudentDetailModal() {
+            document.getElementById('student-detail-modal').style.display = 'none';
+        }
+
+        // Excluir Submissão
+        function deleteSubmission(submissionId, event) {
+            event.stopPropagation();
+            if (confirm('Deseja realmente excluir esta resposta? Esta ação não pode ser desfeita.')) {
+                submissions = submissions.filter(s => s.id !== submissionId);
+                localStorage.setItem('simulado_pirls_submissions', JSON.stringify(submissions));
+                loadTeacherDashboard();
+            }
+        }
+
+        // Exportar para CSV
+        function exportToCSV() {
+            if (submissions.length === 0) {
+                alert('Não há dados para exportar.');
+                return;
+            }
+
+            let csvContent = '\uFEFF';
+            csvContent += 'Data;Nome;Série;Turma;Acertos Objetivos;Total Objetivos;';
+
+            questionSpecs.forEach(spec => {
+                csvContent += `Q_${spec.block.split(' ').slice(1).join('_')}_${spec.num}_${spec.id};`;
+            });
+            csvContent += '\n';
+
+            submissions.forEach(sub => {
+                const date = sub.date.replace(/;/g, ',');
+                const name = sub.student.name.replace(/;/g, ',');
+                const grade = sub.student.grade.replace(/;/g, ',');
+                const className = sub.student.class.replace(/;/g, ',');
+
+                csvContent += `"${date}";"${name}";"${grade}";"${className}";${sub.score};11;`;
+
+                questionSpecs.forEach(spec => {
+                    let ans = '';
+                    if (spec.type === 'checkbox_group') {
+                        const mark = [];
+                        if (sub.answers.p1a) mark.push('A');
+                        if (sub.answers.p1b) mark.push('B');
+                        if (sub.answers.p1c) mark.push('C');
+                        if (sub.answers.p1d) mark.push('D');
+                        if (sub.answers.p1e) mark.push('E');
+                        ans = mark.join(',');
+                    } else if (spec.type === 'objective') {
+                        ans = sub.answers[spec.id] ? spec.options[sub.answers[spec.id]] : '';
+                    } else {
+                        ans = sub.answers[spec.id] || '';
+                    }
+                    ans = ans.replace(/"/g, '""').replace(/\n/g, ' ').replace(/;/g, ',');
+                    csvContent += `"${ans}";`;
+                });
+                csvContent += '\n';
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', `simulado_pirls_relatorio_${new Date().toLocaleDateString('pt-BR').replace(/\//g, '-')}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Limpar Banco de Dados
+        function clearDatabase() {
+            if (confirm('ATENÇÃO: Isso irá apagar permanentemente todas as respostas registradas do simulado. Deseja prosseguir?')) {
+                const conf = prompt('Digite "CONFIRMAR" no campo para confirmar a exclusão permanente de todos os dados:');
+                if (conf === 'CONFIRMAR') {
+                    localStorage.removeItem('simulado_pirls_submissions');
+                    submissions = [];
+                    loadTeacherDashboard();
+                    alert('Banco de dados excluído com sucesso.');
+                } else if (conf !== null) {
+                    alert('Confirmação inválida. Nenhuma alteração foi realizada.');
+                }
+            }
+        }
+
+        // Initialize
+        updateProgress();
+
+        // =========================================
+        // ANIMAÇÃO: ESTRELINHAS FLUTUANTES
+        // =========================================
+        (function initFloatingStars() {
+            const container = document.getElementById('floating-stars');
+            if (!container) return;
+            const emojis = ['⭐', '✨', '📚', '✏️', '🌟', '💡', '🎯', '📖', '🏆', '🎓'];
+            const count = 14;
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+                star.style.opacity = 0;
+                const duration = 8 + Math.random() * 12;
+                const delay = Math.random() * 10;
+                star.style.animation = `floatStar ${duration}s ${delay}s linear infinite`;
+                container.appendChild(star);
+            }
+        })();
+
+        // =========================================
+        // ANIMAÇÃO: CONFETTI NA ENTREGA
+        // =========================================
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const pieces = [];
+            const colors = ['#FCD34D', '#3B82F6', '#22C55E', '#F472B6', '#FB923C', '#A78BFA', '#FFFFFF'];
+            for (let i = 0; i < 160; i++) {
+                pieces.push({
+                    x: Math.random() * canvas.width,
+                    y: -10 - Math.random() * canvas.height * 0.5,
+                    w: 6 + Math.random() * 10,
+                    h: 8 + Math.random() * 6,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360,
+                    rotSpeed: (Math.random() - 0.5) * 6,
+                    vx: (Math.random() - 0.5) * 3,
+                    vy: 2 + Math.random() * 4,
+                    alpha: 1
+                });
+            }
+
+            let frame = 0;
+            function drawConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                pieces.forEach(p => {
+                    ctx.save();
+                    ctx.globalAlpha = p.alpha;
+                    ctx.translate(p.x + p.w / 2, p.y + p.h / 2);
+                    ctx.rotate(p.rotation * Math.PI / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                    ctx.restore();
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.rotation += p.rotSpeed;
+                    if (frame > 120) p.alpha -= 0.01;
+                });
+                frame++;
+                if (frame < 200) requestAnimationFrame(drawConfetti);
+                else ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            drawConfetti();
+        }
+
+        // Animar barras do painel ao abrir
+        function animateBars() {
+            setTimeout(() => {
+                document.querySelectorAll('.ranking-bar').forEach(bar => {
+                    const target = bar.getAttribute('data-width') || '0';
+                    bar.style.width = target + '%';
+                });
+                document.querySelectorAll('.rank-score-bar-fill').forEach(bar => {
+                    const target = bar.getAttribute('data-width') || '0';
+                    bar.style.width = target + '%';
+                });
+            }, 100);
+        }
+    </script>
+
+    <!-- Password Modal (Acesso ao Painel do Professor) -->
+    <div id="password-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h4><i class="fas fa-lock"></i> Acesso Restrito</h4>
+                <button class="close-btn" onclick="closePasswordModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Este painel contém relatórios de turmas e é restrito a professores. Digite a senha para acessar:</p>
+                <div class="mb-3">
+                    <input type="password" id="teacher-password" class="form-control form-control-lg"
+                        placeholder="Digite a senha (pirls)"
+                        style="border-radius: 12px; border: 2px solid #e0e0e0; padding: 12px 18px;"
+                        onkeydown="if(event.key === 'Enter') checkTeacherPassword()">
+                </div>
+                <div id="password-error" class="text-danger mb-2"
+                    style="display: none; font-size: 0.9rem; font-weight: 600;">
+                    <i class="fas fa-exclamation-circle"></i> Senha incorreta! Tente novamente.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-custom btn-secondary-custom" onclick="closePasswordModal()"
+                    style="padding: 10px 20px;">Cancelar</button>
+                <button class="btn-custom btn-primary-custom" onclick="checkTeacherPassword()"
+                    style="padding: 10px 20px;">Entrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Detail Modal (Visualizar Respostas de um Aluno) -->
+    <div id="student-detail-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card modal-lg">
+            <div class="modal-header">
+                <h4><i class="fas fa-user-graduate"></i> Respostas de: <span id="detail-student-name"></span></h4>
+                <button class="close-btn" onclick="closeStudentDetailModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                <div class="student-info-grid">
+                    <div><strong>Nome:</strong> <span id="info-name"></span></div>
+                    <div><strong>Data/Hora:</strong> <span id="info-date"></span></div>
+                    <div><strong>Série/Ano:</strong> <span id="info-grade"></span></div>
+                    <div><strong>Turma:</strong> <span id="info-class"></span></div>
+                    <div style="grid-column: 1 / -1; margin-top: 5px;">
+                        <strong>Acertos Objetivos:</strong>
+                        <span id="info-score" class="badge bg-success"
+                            style="font-size: 0.95rem; padding: 6px 12px;"></span>
+                    </div>
+                </div>
+                <hr>
+                <h5 class="mb-3" style="color: #667eea; font-weight: 700;"><i class="fas fa-tasks"></i> Respostas do
+                    Aluno</h5>
+                <div id="detail-questions-container">
+                    <!-- Preenchido via JS -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-custom btn-secondary-custom" onclick="closeStudentDetailModal()"
+                    style="padding: 10px 25px;">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
