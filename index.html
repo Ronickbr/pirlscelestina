@@ -1829,6 +1829,11 @@
                         Simulado PIRLS</p>
                 </div>
                 <div class="d-flex gap-2 flex-wrap">
+
+                    <button class="btn-custom btn-primary-custom" onclick="openGabaritoModal()"
+                        style="padding: 10px 20px; font-size: 0.9rem;">
+                        <i class="fas fa-key"></i> Configurar Gabarito
+                    </button>
                     <button class="btn-custom btn-secondary-custom" onclick="exportToCSV()"
                         style="padding: 8px 18px; font-size: 0.85rem;">
                         <i class="fas fa-file-export"></i> Exportar CSV
@@ -2030,7 +2035,7 @@
                             <p>🌸 Em casa, ele espalhou pedras grandes no fundo de um vaso de flores, tapou as pedras
                                 com
                                 seixos e
-                                depois encheu o vaso com terra boa e húmida. Enterrou a semente alguns centímetros
+                                depois encheu o vaso com terra boa e úmida. Enterrou a semente alguns centímetros
                                 abaixo da
                                 superfície e cobriu-a com terra fofa. Durante os dias seguintes, Jun, tal como todas as
                                 crianças que
@@ -3313,13 +3318,342 @@
         let submissions = JSON.parse(localStorage.getItem('simulado_pirls_submissions')) || [];
 
         // Question Specs for Teacher Panel
-        const questionSpecs = [];
-        for (let i = 1; i <= 17; i++) {
-            questionSpecs.push({ id: 'v' + i, block: 'O Vaso Vazio', type: 'subjective', num: i, text: 'Questão ' + i });
-        }
-        for (let i = 1; i <= 15; i++) {
-            questionSpecs.push({ id: 'p' + i, block: 'O Incrível Polvo', type: 'subjective', num: i, text: 'Questão ' + i });
-        }
+        const questionSpecs = [
+            {
+                "num": "2",
+                "id": "resposta_q2",
+                "all_inputs": [
+                    "resposta_q2"
+                ],
+                "type": "subjective",
+                "text": "O que é que cada criança recebeu do Imperador?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "3",
+                "id": "resposta_q3",
+                "all_inputs": [
+                    "resposta_q3"
+                ],
+                "type": "objective",
+                "text": "Porque se chamou «oportunidade preciosa» a cada semente?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "4",
+                "id": "resposta_q4_linha1",
+                "all_inputs": [
+                    "resposta_q4_linha1",
+                    "resposta_q4_linha2"
+                ],
+                "type": "subjective",
+                "text": "Procura a parte da história junto a esta imagem de uma folha: 🍃.\n                                O que mostra que Jun era o melhor jardineiro da aldeia?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "5",
+                "id": "resposta_q5",
+                "all_inputs": [
+                    "resposta_q5"
+                ],
+                "type": "objective",
+                "text": "Qual destes vasos se parece mais com o vaso de flores de Jun quando ele plantou a\n                                semente pela primeira vez?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "6",
+                "id": "resposta_q6",
+                "all_inputs": [
+                    "resposta_q6"
+                ],
+                "type": "objective",
+                "text": "Procura a parte da história junto a esta imagem de uma flor: 🌸.\n                                O que é que este parágrafo mostra sobre Jun?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "7",
+                "id": "resposta_q7",
+                "all_inputs": [
+                    "resposta_q7"
+                ],
+                "type": "objective",
+                "text": "Porque é que as crianças construíram vedações à volta dos seus vasos?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "8",
+                "id": "resposta_q8",
+                "all_inputs": [
+                    "resposta_q8"
+                ],
+                "type": "objective",
+                "text": "Qual foi a primeira coisa que Jun fez quando a sua semente não cresceu?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "9",
+                "id": "resposta_q9_linha1",
+                "all_inputs": [
+                    "resposta_q9_linha1",
+                    "resposta_q9_linha2"
+                ],
+                "type": "subjective",
+                "text": "Porque é que as crianças se riram de Jun? Usa o que aconteceu na história para\n                                justificares a tua resposta.",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "10",
+                "id": "resposta_q10_linha1",
+                "all_inputs": [
+                    "resposta_q10_linha1",
+                    "resposta_q10_linha2"
+                ],
+                "type": "subjective",
+                "text": "Na tua opinião, porque é que os pais de Jun lhe disseram para levar o vaso vazio ao\n                                palácio?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "11",
+                "id": "resposta_q11",
+                "all_inputs": [
+                    "resposta_q11"
+                ],
+                "type": "objective",
+                "text": "Qual das palavras descreve melhor como Jun se sentia enquanto caminhava para o palácio\n                                para avaliação?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "12",
+                "id": "resposta_q12",
+                "all_inputs": [
+                    "resposta_q12"
+                ],
+                "type": "objective",
+                "text": "Porque é que o Imperador ficou mais carrancudo ao olhar para o vaso de Jun?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "13",
+                "id": "resposta_q13",
+                "all_inputs": [
+                    "resposta_q13"
+                ],
+                "type": "objective",
+                "text": "Porque é que o Jun disse «Desculpe» ao Imperador?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "14",
+                "id": "resposta_q14",
+                "all_inputs": [
+                    "resposta_q14"
+                ],
+                "type": "objective",
+                "text": "Porque é que as plantas cresceram nos vasos das outras crianças?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "15",
+                "id": "resposta_q15",
+                "all_inputs": [
+                    "resposta_q15"
+                ],
+                "type": "objective",
+                "text": "O que pensas que o Imperador valorizava mais numa pessoa?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "16",
+                "id": "resposta_q16_linha1",
+                "all_inputs": [
+                    "resposta_q16_linha1",
+                    "resposta_q16_linha2"
+                ],
+                "type": "subjective",
+                "text": "Porque é que o Imperador sorriu para o Jun?",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "17",
+                "id": "resposta_q17_esperancoso_l1",
+                "all_inputs": [
+                    "resposta_q17_esperancoso_l1",
+                    "resposta_q17_esperancoso_l2",
+                    "resposta_q17_intrigado_l1",
+                    "resposta_q17_intrigado_l2",
+                    "resposta_q17_derrotado_l1",
+                    "resposta_q17_derrotado_l2"
+                ],
+                "type": "subjective",
+                "text": "Jun teve diferentes sentimentos durante a história. Explica porque é que Jun teve cada\n                                um destes sentimentos:",
+                "block": "O Vaso Vazio"
+            },
+            {
+                "num": "1",
+                "id": "q1_1",
+                "all_inputs": [
+                    "q1_1",
+                    "q1_2",
+                    "q1_3",
+                    "q1_4",
+                    "q1_5"
+                ],
+                "type": "checkbox_group",
+                "text": "Segundo o texto, quais das afirmações seguintes sobre os polvos são\n                                verdadeiras?Clica em todas as\n                                    opções corretas.",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "2",
+                "id": "resposta_q2",
+                "all_inputs": [
+                    "resposta_q2",
+                    "resposta_q2_l2"
+                ],
+                "type": "subjective",
+                "text": "O que é que os polvos utilizam para fazer portas nos seus esconderijos?",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "3",
+                "id": "resposta_q3",
+                "all_inputs": [
+                    "resposta_q3"
+                ],
+                "type": "objective",
+                "text": "No texto, afirma-se que os polvos são «mestres do disfarce». O que é que isso quer\n                                dizer?",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "4",
+                "id": "resposta_q4",
+                "all_inputs": [
+                    "resposta_q4"
+                ],
+                "type": "objective",
+                "text": "Os polvos não têm ossos. O que é que isso lhes permite fazer?",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "5",
+                "id": "resposta_q5",
+                "all_inputs": [
+                    "resposta_q5",
+                    "resposta_q5_l2"
+                ],
+                "type": "subjective",
+                "text": "Os polvos são conhecidos por aparecerem em lugares pouco habituais. Indica um exemplo\n                                retirado do texto.",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "6",
+                "id": "resposta_q6_1",
+                "all_inputs": [
+                    "resposta_q6_1",
+                    "resposta_q6_1_l2",
+                    "resposta_q6_2",
+                    "resposta_q6_2_l2"
+                ],
+                "type": "subjective",
+                "text": "Indica duas maneiras de os polvos fugirem dos seus predadores.",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "7",
+                "id": "resposta_q7",
+                "all_inputs": [
+                    "resposta_q7",
+                    "resposta_q7_l2"
+                ],
+                "type": "subjective",
+                "text": "O que é que o polvo Frieda aprendeu a fazer?",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "8",
+                "id": "resposta_q8_obj",
+                "all_inputs": [
+                    "resposta_q8_obj",
+                    "opiniao_aquario",
+                    "opiniao_aquario_justificativa_l1",
+                    "opiniao_aquario_justificativa_l2"
+                ],
+                "type": "objective_opinion",
+                "text": "O que é que o polvo Squirt aprendeu a fazer?",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "9",
+                "id": "autor_pinturas",
+                "all_inputs": [
+                    "autor_pinturas",
+                    "autor_pinturas_justificativa_l1",
+                    "autor_pinturas_justificativa_l2"
+                ],
+                "type": "objective_opinion",
+                "text": "Será que o autor do texto pensa que as pinturas de Squirt são boas?Seleciona a tua opção.",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "10",
+                "id": "resposta_q10_l1",
+                "all_inputs": [
+                    "resposta_q10_l1",
+                    "resposta_q10_l2"
+                ],
+                "type": "subjective",
+                "text": "Porque é que os funcionários do aquário dão puzzles aos polvos?",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "11",
+                "id": "resposta_q11_l1",
+                "all_inputs": [
+                    "resposta_q11_l1",
+                    "resposta_q11_l2"
+                ],
+                "type": "subjective",
+                "text": "Qual é o brinquedo com que Sammy gosta de brincar?",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "12",
+                "id": "resposta_q12_1",
+                "all_inputs": [
+                    "resposta_q12_1",
+                    "resposta_q12_1_l2",
+                    "resposta_q12_2",
+                    "resposta_q12_2_l2"
+                ],
+                "type": "subjective",
+                "text": "Quais são duas coisas que os polvos fazem para mostrarem que ficam contentes ao verem\n                                os seus tratadores?",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "13",
+                "id": "resposta_q13",
+                "all_inputs": [
+                    "resposta_q13"
+                ],
+                "type": "objective",
+                "text": "Os polvos gostam que os seus tratadores lhes façam festas. O que é que os polvos fazem\n                                que mostra isso?",
+                "block": "O Incrível Polvo"
+            },
+            {
+                "num": "14",
+                "id": "resposta_q14_1_l1",
+                "all_inputs": [
+                    "resposta_q14_1_l1",
+                    "resposta_q14_1_l2",
+                    "resposta_q14_2_l1",
+                    "resposta_q14_2_l2",
+                    "resposta_q14_3_l1",
+                    "resposta_q14_3_l2"
+                ],
+                "type": "subjective",
+                "text": "O autor afirma que o polvo é um animal «incrível». Indica três exemplos de coisas que\n                                polvos em aquários tenham aprendido a fazer que sejam incríveis.",
+                "block": "O Incrível Polvo"
+            }
+        ];
 
         // Tab switching
         function switchTab(tabName, event) {
@@ -3473,12 +3807,27 @@
                 }
             });
 
+            let calculatedScore = 0;
+            questionSpecs.forEach(spec => {
+                const expected = spec.correct;
+                if (!expected) return;
+
+                const studentAns = (answers[spec.id] || '').toString().trim().toLowerCase();
+                const expectedAns = expected.toString().trim().toLowerCase();
+
+                if (studentAns === expectedAns && expectedAns !== '') {
+                    calculatedScore++;
+                } else if (spec.type === 'subjective' && studentAns.includes(expectedAns) && expectedAns !== '') {
+                    calculatedScore++;
+                }
+            });
+
             const submission = {
                 id: Date.now(),
                 student: currentStudent,
                 date: new Date().toLocaleString('pt-BR'),
                 answers: answers,
-                score: 0
+                score: calculatedScore
             };
 
             submissions.push(submission);
@@ -3563,6 +3912,87 @@
                 document.getElementById('registration-card').style.display = 'block';
             }
         }
+
+
+        // --- LOGICA DO GABARITO ---
+        function loadGabarito() {
+            const gabarito = JSON.parse(localStorage.getItem('simulado_pirls_gabarito')) || {};
+            questionSpecs.forEach(spec => {
+                spec.correct = gabarito[spec.id] || '';
+            });
+        }
+
+        function openGabaritoModal() {
+            const gabarito = JSON.parse(localStorage.getItem('simulado_pirls_gabarito')) || {};
+            let html = '';
+            let currentBlock = '';
+
+            questionSpecs.forEach(spec => {
+                if (spec.block !== currentBlock) {
+                    html += `<h5 class="mt-4 mb-3" style="color: #1E40AF; border-bottom: 2px solid #E2E8F0; padding-bottom: 5px;">${spec.block}</h5>`;
+                    currentBlock = spec.block;
+                }
+
+                const val = gabarito[spec.id] || '';
+
+                html += `
+                    <div class="mb-3">
+                        <label class="form-label" style="font-weight: 700; color: #475569;">${spec.text}</label>
+                        <input type="text" class="form-control" name="${spec.id}" value="${val}" placeholder="Resposta esperada..." style="border-radius: 8px;">
+                    </div>
+                `;
+            });
+
+            document.getElementById('gabarito-fields-container').innerHTML = html;
+            document.getElementById('gabarito-modal').style.display = 'flex';
+        }
+
+        function closeGabaritoModal() {
+            document.getElementById('gabarito-modal').style.display = 'none';
+        }
+
+        function saveGabarito() {
+            const form = document.getElementById('form-gabarito');
+            const formData = new FormData(form);
+            const gabarito = {};
+            for (let [key, val] of formData.entries()) {
+                gabarito[key] = val.trim();
+            }
+
+            localStorage.setItem('simulado_pirls_gabarito', JSON.stringify(gabarito));
+            loadGabarito();
+            recalculateScores();
+            closeGabaritoModal();
+            alert('Gabarito salvo e notas recalculadas com sucesso!');
+        }
+
+        function recalculateScores() {
+            submissions.forEach(sub => {
+                let score = 0;
+                questionSpecs.forEach(spec => {
+                    const expected = spec.correct;
+                    if (!expected) return;
+
+                    const studentAns = (sub.answers[spec.id] || '').toString().trim().toLowerCase();
+                    const expectedAns = expected.toString().trim().toLowerCase();
+
+                    if (studentAns === expectedAns && expectedAns !== '') {
+                        score++;
+                    } else if (spec.type === 'subjective' && studentAns.includes(expectedAns) && expectedAns !== '') {
+                        score++; // Aceita se contiver a palavra-chave
+                    } else if (spec.type === 'checkbox_group') {
+                        // Logica customizada se necessario
+                        if (studentAns === expectedAns) score++;
+                    }
+                });
+                sub.score = score;
+            });
+            localStorage.setItem('simulado_pirls_submissions', JSON.stringify(submissions));
+            loadTeacherDashboard();
+        }
+
+        // Carrega o gabarito ao iniciar
+        loadGabarito();
 
         // Carregar Métricas e Rankings
         function loadTeacherDashboard() {
@@ -3841,9 +4271,26 @@
                 }
                 else {
                     const studentAnswer = sub.answers[spec.id] || '';
-                    statusBadge = `<span class="badge bg-secondary" style="font-size: 0.75rem; padding: 3px 8px;">Dissertativa (Avaliação)</span>`;
+                    const expected = spec.correct || '';
+
+                    let isCorrect = false;
+                    if (expected && studentAnswer.toString().trim().toLowerCase().includes(expected.toString().trim().toLowerCase())) {
+                        isCorrect = true;
+                    } else if (expected && studentAnswer.toString().trim().toLowerCase() === expected.toString().trim().toLowerCase()) {
+                        isCorrect = true;
+                    }
+
+                    if (expected) {
+                        statusBadge = isCorrect
+                            ? `<span class="correct-badge"><i class="fas fa-check"></i> Correta</span>`
+                            : `<span class="incorrect-badge"><i class="fas fa-times"></i> Incorreta</span>`;
+                    } else {
+                        statusBadge = `<span class="badge bg-secondary" style="font-size: 0.75rem; padding: 3px 8px;">Sem Gabarito</span>`;
+                    }
+
                     answerContent = `
                         <div class="detail-answer-box">${studentAnswer ? studentAnswer : '<em>Aluno deixou esta resposta em branco.</em>'}</div>
+                        ${expected ? `<div style="font-size: 0.85rem; color: #166534; margin-top: 8px; background: #eafaf1; padding: 8px; border-radius: 6px; border-left: 4px solid #22c55e;"><strong>Gabarito Esperado:</strong> ${expected}</div>` : ''}
                     `;
                 }
 
@@ -4036,6 +4483,30 @@
             }, 100);
         }
     </script>
+
+
+    <!-- Gabarito Modal -->
+    <div id="gabarito-modal" class="modal-overlay" style="display: none; z-index: 2000;">
+        <div class="modal-card modal-lg">
+            <div class="modal-header">
+                <h4><i class="fas fa-key"></i> Configurar Gabarito</h4>
+                <button class="close-btn" onclick="closeGabaritoModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                <p class="text-muted mb-4">Insira as respostas corretas. O sistema fará a correção automática com base
+                    nestes valores.</p>
+                <form id="form-gabarito">
+                    <div id="gabarito-fields-container"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-custom btn-secondary-custom" onclick="closeGabaritoModal()"
+                    style="padding: 10px 20px;">Cancelar</button>
+                <button class="btn-custom btn-primary-custom" onclick="saveGabarito()"
+                    style="padding: 10px 20px;">Salvar Gabarito</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Password Modal (Acesso ao Painel do Professor) -->
     <div id="password-modal" class="modal-overlay" style="display: none;">
