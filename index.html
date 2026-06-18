@@ -1648,6 +1648,91 @@
                 transition-duration: 0.01ms !important;
             }
         }
+
+        /* Custom Form Classes from User Request */
+        .question,
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--texto-escuro);
+            margin-bottom: 12px;
+        }
+
+        .question-block {
+            margin-bottom: 24px;
+        }
+
+        .option-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .option-container input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .option-letter {
+            font-weight: bold;
+            margin-right: 10px;
+            background: #e2e8f0;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .text-response-container {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .text-line {
+            border: none;
+            border-bottom: 2px solid #ccc;
+            background: transparent;
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            padding: 4px 0;
+        }
+
+        .text-line:focus {
+            outline: none;
+            border-bottom-color: var(--azul-escola);
+        }
+
+        .image-options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .image-card {
+            flex-direction: column;
+            padding: 15px;
+        }
+
+        .image-card svg {
+            margin: 10px 0;
+        }
+
+        .sub-feeling {
+            font-weight: bold;
+            color: var(--azul-escola);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
     </style>
 
 
@@ -1935,14 +2020,15 @@
                             <img src="images/image3.png" alt="Flor de lótus" style="width: 90px; object-fit: contain;">
                         </div>
                         <div style="flex: 1; position: relative; z-index: 1;">
-                            <p>E assim aconteceu com o jovem Jun. Ele já era considerado como o melhor jardineiro da
+                            <p>🍃 E assim aconteceu com o jovem Jun. Ele já era considerado como o melhor jardineiro da
                                 aldeia. Os seus
                                 vizinhos adoravam partilhar os melões, as couves e as ervilhas do jardim dele.
                                 Cuidadosamente, Jun
                                 levou a semente do Imperador para casa, mantendo-a segura nas suas mãos para ela não
                                 cair, mas não
                                 tão apertada que a fosse esmagar.</p>
-                            <p>Em casa, ele espalhou pedras grandes no fundo de um vaso de flores, tapou as pedras com
+                            <p>🌸 Em casa, ele espalhou pedras grandes no fundo de um vaso de flores, tapou as pedras
+                                com
                                 seixos e
                                 depois encheu o vaso com terra boa e húmida. Enterrou a semente alguns centímetros
                                 abaixo da
@@ -2071,235 +2157,563 @@
 
 
                 <!-- Questions Bloco 1 -->
-                <form id="form-vaso">
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">1</span>
-                            Porque é que o Imperador organizou o concurso?
+                <form id="form-vaso" onsubmit="return false;">
+
+                    <div class="question">
+                        <span class="question-number">1.</span> Porque é que o Imperador organizou o concurso?
+                    </div>
+
+                    <label class="option-container">
+                        <input type="radio" name="concurso_imperador" value="A">
+                        <span class="option-letter">A</span>
+                        <span>para ensinar coisas sobre plantas às crianças</span>
+                    </label>
+
+                    <label class="option-container">
+                        <input type="radio" name="concurso_imperador" value="B">
+                        <span class="option-letter">B</span>
+                        <span>para escolher um novo Imperador</span>
+                    </label>
+
+                    <label class="option-container">
+                        <input type="radio" name="concurso_imperador" value="C">
+                        <span class="option-letter">C</span>
+                        <span>para mostrar como ele era grandioso</span>
+                    </label>
+
+                    <label class="option-container">
+                        <input type="radio" name="concurso_imperador" value="D">
+                        <span class="option-letter">D</span>
+                        <span>para encontrar a melhor espécie de planta</span>
+                    </label>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">2.</span>
+                            <span>O que é que cada criança recebeu do Imperador?</span>
                         </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="radio" id="v1a" name="v1" value="a" class="option-input">
-                                <label for="v1a" class="option-label">A) para ensinar coisas sobre plantas às
-                                    crianças</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v1b" name="v1" value="b" class="option-input">
-                                <label for="v1b" class="option-label">B) para escolher um novo Imperador</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v1c" name="v1" value="c" class="option-input">
-                                <label for="v1c" class="option-label">C) para mostrar como ele era grandioso</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v1d" name="v1" value="d" class="option-input">
-                                <label for="v1d" class="option-label">D) para encontrar a melhor espécie de
-                                    planta</label>
+                        <div class="text-response-container">
+                            <div style="display: flex; align-items: flex-end;">
+                                <span
+                                    style="border: 1px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-bottom: 15px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q2" class="text-line" required>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">2</span>
-                            O que é que cada criança recebeu do Imperador?
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">3.</span>
+                            <span>Porque se chamou «oportunidade preciosa» a cada semente?</span>
                         </div>
-                        <div class="textarea-wrapper">
-                            <textarea name="v2" placeholder="Escreva sua resposta aqui..."></textarea>
-                        </div>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q3" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>Cada semente permitia ganhar o concurso.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q3" value="B">
+                            <span class="option-letter">B</span>
+                            <span>Cada semente era real e muito dispendiosa.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q3" value="C">
+                            <span class="option-letter">C</span>
+                            <span>Cada semente ia transformar-se numa linda planta.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q3" value="D">
+                            <span class="option-letter">D</span>
+                            <span>Cada semente permitia tornar-se no melhor jardineiro.</span>
+                        </label>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">3</span>
-                            Porque se chamou «oportunidade preciosa» a cada semente?
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">4.</span>
+                            <span>
+                                Procura a parte da história junto a esta imagem de uma folha: 🍃.<br>
+                                O que mostra que Jun era o melhor jardineiro da aldeia?
+                            </span>
                         </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="radio" id="v3a" name="v3" value="a" class="option-input">
-                                <label for="v3a" class="option-label">A) Cada semente permitia ganhar o
-                                    concurso.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v3b" name="v3" value="b" class="option-input">
-                                <label for="v3b" class="option-label">B) Cada semente era real e muito
-                                    dispendiosa.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v3c" name="v3" value="c" class="option-input">
-                                <label for="v3c" class="option-label">C) Cada semente ia transformar-se numa linda
-                                    planta.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v3d" name="v3" value="d" class="option-input">
-                                <label for="v3d" class="option-label">D) Cada semente permitia tornar-se no melhor
-                                    jardineiro.</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">4</span>
-                            O que é que mostra que Jun era o melhor jardineiro da aldeia?
-                        </div>
-                        <div class="textarea-wrapper">
-                            <textarea name="v4" placeholder="Escreva sua resposta aqui..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">5</span>
-                            Qual foi a primeira coisa que Jun fez quando a sua semente não cresceu?
-                        </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="radio" id="v5a" name="v5" value="a" class="option-input">
-                                <label for="v5a" class="option-label">A) Ele construiu uma vedação à volta do seu
-                                    vaso.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v5b" name="v5" value="b" class="option-input">
-                                <label for="v5b" class="option-label">B) Ele regou a semente mais vezes.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v5c" name="v5" value="c" class="option-input">
-                                <label for="v5c" class="option-label">C) Ele queixou-se aos pais.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v5d" name="v5" value="d" class="option-input">
-                                <label for="v5d" class="option-label">D) Ele tornou a plantar a semente num outro
-                                    vaso.</label>
+                        <div class="text-response-container">
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 1px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q4_linha1" class="text-line" required>
+                                    <input type="text" name="resposta_q4_linha2" class="text-line">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">6</span>
-                            Porque é que as crianças se riram de Jun? Usa o que aconteceu na história para justificares
-                            a
-                            tua resposta.
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">5.</span>
+                            <span>Qual destes vasos se parece mais com o vaso de flores de Jun quando ele plantou a
+                                semente pela primeira vez?</span>
                         </div>
-                        <div class="textarea-wrapper">
-                            <textarea name="v6" placeholder="Escreva sua resposta aqui..."></textarea>
+
+                        <div class="image-options-grid">
+                            <label class="option-container image-card">
+                                <input type="radio" name="resposta_q5" value="A" required>
+                                <svg width="160" height="150" viewBox="0 0 160 150">
+                                    <polygon points="20,10 140,10 120,140 40,140" fill="#fff" stroke="#000"
+                                        stroke-width="3" />
+                                    <path d="M 22,25 Q 80,30 138,25 L 120,140 L 40,140 Z" fill="#8B5A2B" />
+                                    <path d="M 70,45 Q 80,35 90,45 Q 85,55 70,45" fill="#E9967A" stroke="#000"
+                                        stroke-width="1" />
+                                    <g fill="#A9A9A9" stroke="#000">
+                                        <circle cx="45" cy="125" r="7" />
+                                        <circle cx="58" cy="123" r="6" />
+                                        <circle cx="70" cy="127" r="8" />
+                                        <circle cx="83" cy="124" r="6" />
+                                        <circle cx="95" cy="126" r="7" />
+                                        <circle cx="108" cy="122" r="6" />
+                                        <circle cx="50" cy="134" r="7" />
+                                        <circle cx="64" cy="135" r="6" />
+                                        <circle cx="78" cy="133" r="8" />
+                                        <circle cx="92" cy="135" r="7" />
+                                        <circle cx="104" cy="133" r="6" />
+                                    </g>
+                                </svg>
+                                <span class="option-letter">A</span>
+                            </label>
+
+                            <label class="option-container image-card">
+                                <input type="radio" name="resposta_q5" value="B">
+                                <svg width="160" height="150" viewBox="0 0 160 150">
+                                    <polygon points="20,10 140,10 120,140 40,140" fill="#fff" stroke="#000"
+                                        stroke-width="3" />
+                                    <path d="M 22,25 Q 80,30 138,25 L 120,140 L 40,140 Z" fill="#8B5A2B" />
+                                    <g fill="#A9A9A9" stroke="#000">
+                                        <circle cx="32" cy="40" r="5" />
+                                        <circle cx="44" cy="38" r="6" />
+                                        <circle cx="56" cy="41" r="5" />
+                                        <circle cx="68" cy="39" r="6" />
+                                        <circle cx="80" cy="42" r="5" />
+                                        <circle cx="92" cy="39" r="6" />
+                                        <circle cx="104" cy="41" r="5" />
+                                        <circle cx="116" cy="38" r="6" />
+                                        <circle cx="128" cy="40" r="5" />
+                                    </g>
+                                    <g fill="#D3D3D3" stroke="#000">
+                                        <circle cx="40" cy="75" r="9" />
+                                        <circle cx="58" cy="73" r="10" />
+                                        <circle cx="78" cy="76" r="11" />
+                                        <circle cx="98" cy="74" r="9" />
+                                        <circle cx="116" cy="75" r="10" />
+                                    </g>
+                                    <path d="M 75,115 Q 85,105 95,115 Q 90,125 75,115" fill="#E9967A" stroke="#000"
+                                        stroke-width="1" />
+                                </svg>
+                                <span class="option-letter">B</span>
+                            </label>
+
+                            <label class="option-container image-card">
+                                <input type="radio" name="resposta_q5" value="C">
+                                <svg width="160" height="150" viewBox="0 0 160 150">
+                                    <polygon points="20,10 140,10 120,140 40,140" fill="#fff" stroke="#000"
+                                        stroke-width="3" />
+                                    <path d="M 22,25 Q 80,30 138,25 L 120,140 L 40,140 Z" fill="#8B5A2B" />
+                                    <path d="M 70,45 Q 80,35 90,45 Q 85,55 70,45" fill="#E9967A" stroke="#000"
+                                        stroke-width="1" />
+                                    <g fill="#D3D3D3" stroke="#000">
+                                        <circle cx="38" cy="85" r="9" />
+                                        <circle cx="56" cy="83" r="10" />
+                                        <circle cx="76" cy="86" r="11" />
+                                        <circle cx="96" cy="84" r="9" />
+                                        <circle cx="114" cy="85" r="10" />
+                                    </g>
+                                    <g fill="#A9A9A9" stroke="#000">
+                                        <circle cx="45" cy="128" r="6" />
+                                        <circle cx="58" cy="126" r="5" />
+                                        <circle cx="70" cy="129" r="6" />
+                                        <circle cx="83" cy="127" r="5" />
+                                        <circle cx="95" cy="129" r="6" />
+                                        <circle cx="108" cy="125" r="5" />
+                                    </g>
+                                </svg>
+                                <span class="option-letter">C</span>
+                            </label>
+
+                            <label class="option-container image-card">
+                                <input type="radio" name="resposta_q5" value="D">
+                                <svg width="160" height="150" viewBox="0 0 160 150">
+                                    <polygon points="20,10 140,10 120,140 40,140" fill="#fff" stroke="#000"
+                                        stroke-width="3" />
+                                    <path d="M 22,25 Q 80,30 138,25 L 120,140 L 40,140 Z" fill="#8B5A2B" />
+                                    <g fill="#A9A9A9" stroke="#000">
+                                        <circle cx="32" cy="40" r="5" />
+                                        <circle cx="44" cy="38" r="6" />
+                                        <circle cx="56" cy="41" r="5" />
+                                        <circle cx="68" cy="39" r="6" />
+                                        <circle cx="80" cy="42" r="5" />
+                                        <circle cx="92" cy="39" r="6" />
+                                        <circle cx="104" cy="41" r="5" />
+                                        <circle cx="116" cy="38" r="6" />
+                                        <circle cx="128" cy="40" r="5" />
+                                    </g>
+                                    <path d="M 72,85 Q 82,75 92,85 Q 87,95 72,85" fill="#E9967A" stroke="#000"
+                                        stroke-width="1" />
+                                    <g fill="#D3D3D3" stroke="#000">
+                                        <circle cx="48" cy="130" r="9" />
+                                        <circle cx="66" cy="128" r="10" />
+                                        <circle cx="86" cy="131" r="9" />
+                                        <circle cx="104" cy="129" r="9" />
+                                    </g>
+                                </svg>
+                                <span class="option-letter">D</span>
+                            </label>
                         </div>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">7</span>
-                            Na tua opinião, porque é que os pais de Jun lhe disseram para levar o vaso vazio ao palácio?
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">6.</span>
+                            <span>
+                                Procura a parte da história junto a esta imagem de uma flor: 🌸.<br>
+                                O que é que este parágrafo mostra sobre Jun?
+                            </span>
                         </div>
-                        <div class="textarea-wrapper">
-                            <textarea name="v7" placeholder="Escreva sua resposta aqui..."></textarea>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q6" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>que ele imaginava o que ia crescer</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q6" value="B">
+                            <span class="option-letter">B</span>
+                            <span>que ele sentia que ia ganhar a competição</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q6" value="C">
+                            <span class="option-letter">C</span>
+                            <span>que ele plantou a semente com cuidado</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q6" value="D">
+                            <span class="option-letter">D</span>
+                            <span>que ele fez erros quando plantou a semente</span>
+                        </label>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">7.</span>
+                            <span>Porque é que as crianças construíram vedações à volta dos seus vasos?</span>
+                        </div>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q7" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>para manter as folhas limpas</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q7" value="B">
+                            <span class="option-letter">B</span>
+                            <span>para evitar que as plantas fossem deitadas abaixo</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q7" value="C">
+                            <span class="option-letter">C</span>
+                            <span>para manter a terra húmida</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q7" value="D">
+                            <span class="option-letter">D</span>
+                            <span>para evitar que outras crianças vissem as suas plantas</span>
+                        </label>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">8.</span>
+                            <span>Qual foi a primeira coisa que Jun fez quando a sua semente não cresceu?</span>
+                        </div>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q8" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>Ele construiu uma vedação à volta do seu vaso.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q8" value="B">
+                            <span class="option-letter">B</span>
+                            <span>Ele regou a semente mais vezes.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q8" value="C">
+                            <span class="option-letter">C</span>
+                            <span>Ele queixou-se aos pais.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q8" value="D">
+                            <span class="option-letter">D</span>
+                            <span>Ele tornou a plantar a semente num outro vaso.</span>
+                        </label>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">9.</span>
+                            <span>Porque é que as crianças se riram de Jun? Usa o que aconteceu na história para
+                                justificares a tua resposta.</span>
+                        </div>
+                        <div class="text-response-container">
+                            <div style="display: flex; align-items: flex-start;">
+                                <span class="pencil-icon" style="margin-top: 5px; font-family: Arial;">✏️ 2</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q9_linha1" class="text-line" required>
+                                    <input type="text" name="resposta_q9_linha2" class="text-line">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">8</span>
-                            Porque é que o Imperador ficou mais carrancudo ao olhar para o vaso de Jun?
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">10.</span>
+                            <span>Na tua opinião, porque é que os pais de Jun lhe disseram para levar o vaso vazio ao
+                                palácio?</span>
                         </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="radio" id="v8a" name="v8" value="a" class="option-input">
-                                <label for="v8a" class="option-label">A) Estava preocupado com o concurso.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v8b" name="v8" value="b" class="option-input">
-                                <label for="v8b" class="option-label">B) Pensava que o vaso de Jun não estava
-                                    suficientemente brilhante.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v8c" name="v8" value="c" class="option-input">
-                                <label for="v8c" class="option-label">C) Estava a esconder o que pensava.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v8d" name="v8" value="d" class="option-input">
-                                <label for="v8d" class="option-label">D) Não sabia porquê é que Jun lá estava.</label>
+                        <div class="text-response-container">
+                            <div style="display: flex; align-items: flex-start;">
+                                <span class="pencil-icon" style="margin-top: 5px; font-family: Arial;">✏️ 1</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q10_linha1" class="text-line" required>
+                                    <input type="text" name="resposta_q10_linha2" class="text-line">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">9</span>
-                            Porque é que o Jun disse «Desculpe» ao Imperador?
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">11.</span>
+                            <span>Qual das palavras descreve melhor como Jun se sentia enquanto caminhava para o palácio
+                                para avaliação?</span>
                         </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="radio" id="v9a" name="v9" value="a" class="option-input">
-                                <label for="v9a" class="option-label">A) Ele tinha feito batota no concurso.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v9b" name="v9" value="b" class="option-input">
-                                <label for="v9b" class="option-label">B) Ele não queria ser um Imperador.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v9c" name="v9" value="c" class="option-input">
-                                <label for="v9c" class="option-label">C) Ele pensava que tinha desapontado o
-                                    Imperador.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v9d" name="v9" value="d" class="option-input">
-                                <label for="v9d" class="option-label">D) Ele tinha regado a sua semente demasiadas
-                                    vezes.</label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q11" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>envergonhado</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q11" value="B">
+                            <span class="option-letter">B</span>
+                            <span>intrigado</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q11" value="C">
+                            <span class="option-letter">C</span>
+                            <span>esperançoso</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q11" value="D">
+                            <span class="option-letter">D</span>
+                            <span>entusiasmado</span>
+                        </label>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">12.</span>
+                            <span>Porque é que o Imperador ficou mais carrancudo ao olhar para o vaso de Jun?</span>
+                        </div>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q12" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>Ele estava zangado porque o Jun não tinha trabalhado bastante.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q12" value="B">
+                            <span class="option-letter">B</span>
+                            <span>Ele estava a tentar ver a semente no fundo do vaso.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q12" value="C">
+                            <span class="option-letter">C</span>
+                            <span>Ele estava a esconder o que pensava.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q12" value="D">
+                            <span class="option-letter">D</span>
+                            <span>Ele achava que o vaso de Jun era feio.</span>
+                        </label>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">13.</span>
+                            <span>Porque é que o Jun disse «Desculpe» ao Imperador?</span>
+                        </div>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q13" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>Ele pensava que tinha chegado atrasado ao palácio.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q13" value="B">
+                            <span class="option-letter">B</span>
+                            <span>Ele achava que o seu vaso estava sujo.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q13" value="C">
+                            <span class="option-letter">C</span>
+                            <span>Ele pensava que tinha desapontado o Imperador.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q13" value="D">
+                            <span class="option-letter">D</span>
+                            <span>Ele quebrou o silêncio no palácio.</span>
+                        </label>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">14.</span>
+                            <span>Porque é que as plantas cresceram nos vasos das outras crianças?</span>
+                        </div>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q14" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>As outras crianças eram melhores jardineiras.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q14" value="B">
+                            <span class="option-letter">B</span>
+                            <span>As outras sementes eram de espécies mais fáceis de cultivar.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q14" value="C">
+                            <span class="option-letter">C</span>
+                            <span>As outras sementes foram cultivadas em estufas reais.</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q14" value="D">
+                            <span class="option-letter">D</span>
+                            <span>As suas sementes foram trocadas por outras novas.</span>
+                        </label>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">15.</span>
+                            <span>O que pensas que o Imperador valorizava mais numa pessoa?</span>
+                        </div>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q15" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>ser o melhor a fazer jardinagem</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q15" value="B">
+                            <span class="option-letter">B</span>
+                            <span>ser uma pessoa honesta</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q15" value="C">
+                            <span class="option-letter">C</span>
+                            <span>ser capaz de cultivar plantas bonitas</span>
+                        </label>
+
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q15" value="D">
+                            <span class="option-letter">D</span>
+                            <span>ser uma pessoa orgulhosa</span>
+                        </label>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">16.</span>
+                            <span>Porque é que o Imperador sorriu para o Jun?</span>
+                        </div>
+                        <div class="text-response-container">
+                            <div style="display: flex; align-items: flex-start;">
+                                <span class="pencil-icon" style="margin-top: 5px; font-family: Arial;">✏️ 1</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q16_linha1" class="text-line" required>
+                                    <input type="text" name="resposta_q16_linha2" class="text-line">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">10</span>
-                            Porque é que as plantas cresceram nos vasos das outras crianças?
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">17.</span>
+                            <span>Jun teve diferentes sentimentos durante a história. Explica porque é que Jun teve cada
+                                um destes sentimentos:</span>
                         </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="radio" id="v10a" name="v10" value="a" class="option-input">
-                                <label for="v10a" class="option-label">A) As outras crianças usaram terra
-                                    melhor.</label>
+
+                        <div class="text-response-container">
+                            <div class="sub-feeling">esperançoso</div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span class="pencil-icon" style="margin-top: 5px; font-family: Arial;">✏️ 1</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q17_esperancoso_l1" class="text-line" required>
+                                    <input type="text" name="resposta_q17_esperancoso_l2" class="text-line">
+                                </div>
                             </div>
-                            <div class="option-item">
-                                <input type="radio" id="v10b" name="v10" value="b" class="option-input">
-                                <label for="v10b" class="option-label">B) As outras crianças vigiaram os seus
-                                    vasos.</label>
+
+                            <div class="sub-feeling" style="margin-top: 30px;">intrigado</div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span class="pencil-icon" style="margin-top: 5px; font-family: Arial;">✏️ 1</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q17_intrigado_l1" class="text-line" required>
+                                    <input type="text" name="resposta_q17_intrigado_l2" class="text-line">
+                                </div>
                             </div>
-                            <div class="option-item">
-                                <input type="radio" id="v10c" name="v10" value="c" class="option-input">
-                                <label for="v10c" class="option-label">C) As suas sementes foram protegidas por
-                                    vedações.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="v10d" name="v10" value="d" class="option-input">
-                                <label for="v10d" class="option-label">D) As suas sementes foram trocadas por outras
-                                    novas.</label>
+
+                            <div class="sub-feeling" style="margin-top: 30px;">derrotado</div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span class="pencil-icon" style="margin-top: 5px; font-family: Arial;">✏️ 1</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q17_derrotado_l1" class="text-line" required>
+                                    <input type="text" name="resposta_q17_derrotado_l2" class="text-line">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">11</span>
-                            Jun teve diferentes sentimentos durante a história. Explique porque é que Jun se sentiu:
-                        </div>
-                        <div class="textarea-wrapper">
-                            <label
-                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Esperançoso:</label>
-                            <textarea name="v11_1" placeholder="Escreva sua resposta aqui..."
-                                style="margin-bottom: 15px;"></textarea>
-
-                            <label
-                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Intrigado:</label>
-                            <textarea name="v11_2" placeholder="Escreva sua resposta aqui..."
-                                style="margin-bottom: 15px;"></textarea>
-
-                            <label
-                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Derrotado:</label>
-                            <textarea name="v11_3" placeholder="Escreva sua resposta aqui..."></textarea>
-                        </div>
-                    </div>
                     <div class="text-center mt-4">
                         <button type="button" class="btn-custom btn-primary-custom" onclick="switchTab('polvo')">
                             Próxima Parte: O Incrível Polvo <i class="fas fa-arrow-right"></i>
@@ -2469,225 +2883,401 @@
 
 
                 <!-- Questions Bloco 2 -->
-                <form id="form-polvo">
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">1</span>
-                            Segundo o texto, quais das afirmações seguintes sobre os polvos são verdadeiras? (Selecione
-                            todas as corretas)
+                <form id="form-polvo" onsubmit="submitQuiz(event); return false;">
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">1.</span>
+                            <span>Segundo o texto, quais das afirmações seguintes sobre os polvos são
+                                verdadeiras?<br><small style="color: #666; font-weight: normal;">Clica em todas as
+                                    opções corretas.</small></span>
                         </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="checkbox" id="p1a" class="checkbox-input">
-                                <label for="p1a" class="option-label">Têm corpos arredondados.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="checkbox" id="p1b" class="checkbox-input">
-                                <label for="p1b" class="option-label">Têm oito braços compridos.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="checkbox" id="p1c" class="checkbox-input">
-                                <label for="p1c" class="option-label">Vivem apenas nas zonas frias do oceano.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="checkbox" id="p1d" class="checkbox-input">
-                                <label for="p1d" class="option-label">Gostam de comer caranguejos e pequenos
-                                    peixes.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="checkbox" id="p1e" class="checkbox-input">
-                                <label for="p1e" class="option-label">Apanham a comida com as suas bocas.</label>
+                        <label class="option-container">
+                            <input type="checkbox" name="q1_1" value="1"
+                                style="margin-right: 12px; transform: scale(1.2);">
+                            <span>Têm corpos arredondados.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="checkbox" name="q1_2" value="2"
+                                style="margin-right: 12px; transform: scale(1.2);">
+                            <span>Têm oito braços compridos.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="checkbox" name="q1_3" value="3"
+                                style="margin-right: 12px; transform: scale(1.2);">
+                            <span>Vivem apenas nas zonas frias do oceano.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="checkbox" name="q1_4" value="4"
+                                style="margin-right: 12px; transform: scale(1.2);">
+                            <span>Gostam de comer caranguejos e pequenos peixes.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="checkbox" name="q1_5" value="5"
+                                style="margin-right: 12px; transform: scale(1.2);">
+                            <span>Apanham a comida com as suas bocas.</span>
+                        </label>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">2.</span>
+                            <span>O que é que os polvos utilizam para fazer portas nos seus esconderijos?</span>
+                        </div>
+                        <div class="text-response-container">
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q2" class="text-line" required>
+                                    <input type="text" name="resposta_q2_l2" class="text-line">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">2</span>
-                            O que é que os polvos utilizam para fazer portas nos seus esconderijos?
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">3.</span>
+                            <span>No texto, afirma-se que os polvos são «mestres do disfarce». O que é que isso quer
+                                dizer?</span>
                         </div>
-                        <div class="textarea-wrapper">
-                            <textarea name="p2" placeholder="Escreva sua resposta aqui..."></textarea>
-                        </div>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q3" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>Conseguem ficar parecidos com outra coisa qualquer.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q3" value="B">
+                            <span class="option-letter">B</span>
+                            <span>São nadadores muito rápidos.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q3" value="C">
+                            <span class="option-letter">C</span>
+                            <span>Conseguem lançar tinta escura.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q3" value="D">
+                            <span class="option-letter">D</span>
+                            <span>Podem ser de tamanhos diferentes.</span>
+                        </label>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">3</span>
-                            No texto, afirma-se que os polvos são «mestres do disfarce». O que é que isso quer dizer?
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">4.</span>
+                            <span>Os polvos não têm ossos. O que é que isso lhes permite fazer?</span>
                         </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="radio" id="p3a" name="p3" value="a" class="option-input">
-                                <label for="p3a" class="option-label">A) Conseguem ficar parecidos com outra coisa
-                                    qualquer.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="p3b" name="p3" value="b" class="option-input">
-                                <label for="p3b" class="option-label">B) São nadadores muito rápidos.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="p3c" name="p3" value="c" class="option-input">
-                                <label for="p3c" class="option-label">C) Conseguem lançar tinta escura.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="p3d" name="p3" value="d" class="option-input">
-                                <label for="p3d" class="option-label">D) Podem ser de tamanhos diferentes.</label>
-                            </div>
-                        </div>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q4" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>Esconderem-se de outros polvos.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q4" value="B">
+                            <span class="option-letter">B</span>
+                            <span>Agarrarem-se bem às rochas.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q4" value="C">
+                            <span class="option-letter">C</span>
+                            <span>Caberem em espaços muito pequenos.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q4" value="D">
+                            <span class="option-letter">D</span>
+                            <span>Ficarem parecidos com algas.</span>
+                        </label>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">4</span>
-                            Os polvos não têm ossos. O que é que isso lhes permite fazer?
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">5.</span>
+                            <span>Os polvos são conhecidos por aparecerem em lugares pouco habituais. Indica um exemplo
+                                retirado do texto.</span>
                         </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="radio" id="p4a" name="p4" value="a" class="option-input">
-                                <label for="p4a" class="option-label">A) Esconderem-se de outros polvos.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="p4b" name="p4" value="b" class="option-input">
-                                <label for="p4b" class="option-label">B) Agarrarem-se bem às rochas.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="p4c" name="p4" value="c" class="option-input">
-                                <label for="p4c" class="option-label">C) Caberem em espaços muito pequenos.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="p4d" name="p4" value="d" class="option-input">
-                                <label for="p4d" class="option-label">D) Ficarem parecidos com algas.</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">5</span>
-                            Indica duas maneiras de os polvos fugirem dos seus predadores.
-                        </div>
-                        <div class="textarea-wrapper">
-                            <label
-                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Maneira
-                                1:</label>
-                            <textarea name="p5_1" placeholder="Escreva sua resposta aqui..."
-                                style="margin-bottom: 15px;"></textarea>
-
-                            <label
-                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Maneira
-                                2:</label>
-                            <textarea name="p5_2" placeholder="Escreva sua resposta aqui..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">6</span>
-                            O que é que o polvo Frieda aprendeu a fazer?
-                        </div>
-                        <div class="textarea-wrapper">
-                            <textarea name="p6" placeholder="Escreva sua resposta aqui..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">7</span>
-                            O que é que o polvo Squirt aprendeu a fazer?
-                        </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="radio" id="p7a" name="p7" value="a" class="option-input">
-                                <label for="p7a" class="option-label">A) A fazer desenhos do aquário.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="p7b" name="p7" value="b" class="option-input">
-                                <label for="p7b" class="option-label">B) A puxar alavancas para lançar tinta para uma
-                                    tela.</label>
+                        <div class="text-response-container">
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q5" class="text-line" required>
+                                    <input type="text" name="resposta_q5_l2" class="text-line">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">8</span>
-                            Qual é o brinquedo com que Sammy gosta de brincar?
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">6.</span>
+                            <span>Indica duas maneiras de os polvos fugirem dos seus predadores.</span>
                         </div>
-                        <div class="textarea-wrapper">
-                            <textarea name="p8" placeholder="Escreva sua resposta aqui..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">9</span>
-                            Quais são duas coisas que os polvos fazem para mostrarem que ficam contentes ao verem os
-                            seus
-                            tratadores?
-                        </div>
-                        <div class="textarea-wrapper">
-                            <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Ação
-                                1:</label>
-                            <textarea name="p9_1" placeholder="Escreva sua resposta aqui..."
-                                style="margin-bottom: 15px;"></textarea>
-
-                            <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Ação
-                                2:</label>
-                            <textarea name="p9_2" placeholder="Escreva sua resposta aqui..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">10</span>
-                            Os polvos gostam que os seus tratadores lhes façam festas. O que é que os polvos fazem que
-                            mostra isso?
-                        </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="radio" id="p10a" name="p10" value="a" class="option-input">
-                                <label for="p10a" class="option-label">A) Resolvem puzzles com os seus
-                                    tratadores.</label>
+                        <div class="text-response-container">
+                            <div class="sub-feeling" style="color: #64748b; font-size:0.95rem;">1. Primeira maneira:
                             </div>
-                            <div class="option-item">
-                                <input type="radio" id="p10b" name="p10" value="b" class="option-input">
-                                <label for="p10b" class="option-label">B) Saltam quando estão com fome.</label>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q6_1" class="text-line" required>
+                                    <input type="text" name="resposta_q6_1_l2" class="text-line">
+                                </div>
                             </div>
-                            <div class="option-item">
-                                <input type="radio" id="p10c" name="p10" value="c" class="option-input">
-                                <label for="p10c" class="option-label">C) Tentam alcançar os tratadores e agarram os
-                                    seus
-                                    braços.</label>
-                            </div>
-                            <div class="option-item">
-                                <input type="radio" id="p10d" name="p10" value="d" class="option-input">
-                                <label for="p10d" class="option-label">D) Comem tudo até ao fim.</label>
+                            <div class="sub-feeling" style="color: #64748b; font-size:0.95rem; margin-top: 20px;">2.
+                                Segunda maneira:</div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q6_2" class="text-line" required>
+                                    <input type="text" name="resposta_q6_2_l2" class="text-line">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="question-container">
-                        <div class="question-title">
-                            <span class="question-number">11</span>
-                            Tendo em conta o que leste no texto, pensas que os aquários são bons para os polvos?
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">7.</span>
+                            <span>O que é que o polvo Frieda aprendeu a fazer?</span>
                         </div>
-                        <div class="options-group">
-                            <div class="option-item">
-                                <input type="radio" id="p11sim" name="p11" value="sim" class="option-input">
-                                <label for="p11sim" class="option-label">Sim</label>
+                        <div class="text-response-container">
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q7" class="text-line" required>
+                                    <input type="text" name="resposta_q7_l2" class="text-line">
+                                </div>
                             </div>
-                            <div class="option-item">
-                                <input type="radio" id="p11nao" name="p11" value="nao" class="option-input">
-                                <label for="p11nao" class="option-label">Não</label>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">8.</span>
+                            <span>O que é que o polvo Squirt aprendeu a fazer?</span>
+                        </div>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q8_obj" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>A fazer desenhos do aquário.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q8_obj" value="B">
+                            <span class="option-letter">B</span>
+                            <span>A puxar alavancas para lançar tinta para uma tela.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q8_obj" value="C">
+                            <span class="option-letter">C</span>
+                            <span>A lançar a sua tinta para uma tela como se estivesse a pintar.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q8_obj" value="D">
+                            <span class="option-letter">D</span>
+                            <span>A utilizar os seus braços como se fossem dedos a pintar.</span>
+                        </label>
+
+                        <div class="question-text" style="margin-top: 30px;">
+                            <span>Tendo em conta o que leste no texto, pensas que os aquários são bons para os
+                                polvos?<br><small style="color: #666; font-weight: normal;">Seleciona a tua
+                                    opção.</small></span>
+                        </div>
+                        <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+                            <label class="option-container" style="flex: 1; padding: 15px;">
+                                <input type="radio" name="opiniao_aquario" value="Sim" required>
+                                <span style="font-weight: bold; font-size: 1.1rem; margin-left: 10px;">Sim</span>
+                            </label>
+                            <label class="option-container" style="flex: 1; padding: 15px;">
+                                <input type="radio" name="opiniao_aquario" value="Não">
+                                <span style="font-weight: bold; font-size: 1.1rem; margin-left: 10px;">Não</span>
+                            </label>
+                        </div>
+                        <div class="text-response-container">
+                            <div class="sub-feeling" style="color: #64748b; font-size:0.95rem;">Apresenta uma razão para
+                                justificares a tua resposta.</div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="opiniao_aquario_justificativa_l1" class="text-line"
+                                        required>
+                                    <input type="text" name="opiniao_aquario_justificativa_l2" class="text-line">
+                                </div>
                             </div>
                         </div>
-                        <div class="textarea-wrapper" style="margin-top: 20px;">
-                            <label
-                                style="display: block; margin-bottom: 10px; font-weight: 600; color: #667eea;">Apresenta
-                                uma razão para justificares a tua resposta:</label>
-                            <textarea name="p11_reason" placeholder="Escreva sua resposta aqui..."></textarea>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">9.</span>
+                            <span>Será que o autor do texto pensa que as pinturas de Squirt são boas?<br><small
+                                    style="color: #666; font-weight: normal;">Seleciona a tua opção.</small></span>
                         </div>
+                        <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+                            <label class="option-container" style="flex: 1; padding: 15px;">
+                                <input type="radio" name="autor_pinturas" value="Sim" required>
+                                <span style="font-weight: bold; font-size: 1.1rem; margin-left: 10px;">Sim</span>
+                            </label>
+                            <label class="option-container" style="flex: 1; padding: 15px;">
+                                <input type="radio" name="autor_pinturas" value="Não">
+                                <span style="font-weight: bold; font-size: 1.1rem; margin-left: 10px;">Não</span>
+                            </label>
+                        </div>
+                        <div class="text-response-container">
+                            <div class="sub-feeling" style="color: #64748b; font-size:0.95rem;">Indica uma razão com
+                                base no texto.</div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="autor_pinturas_justificativa_l1" class="text-line"
+                                        required>
+                                    <input type="text" name="autor_pinturas_justificativa_l2" class="text-line">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">10.</span>
+                            <span>Porque é que os funcionários do aquário dão puzzles aos polvos?</span>
+                        </div>
+                        <div class="text-response-container">
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q10_l1" class="text-line" required>
+                                    <input type="text" name="resposta_q10_l2" class="text-line">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">11.</span>
+                            <span>Qual é o brinquedo com que Sammy gosta de brincar?</span>
+                        </div>
+                        <div class="text-response-container">
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q11_l1" class="text-line" required>
+                                    <input type="text" name="resposta_q11_l2" class="text-line">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">12.</span>
+                            <span>Quais são duas coisas que os polvos fazem para mostrarem que ficam contentes ao verem
+                                os seus tratadores?</span>
+                        </div>
+                        <div class="text-response-container">
+                            <div class="sub-feeling" style="color: #64748b; font-size:0.95rem;">1. Primeira coisa:</div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q12_1" class="text-line" required>
+                                    <input type="text" name="resposta_q12_1_l2" class="text-line">
+                                </div>
+                            </div>
+                            <div class="sub-feeling" style="color: #64748b; font-size:0.95rem; margin-top: 20px;">2.
+                                Segunda coisa:</div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q12_2" class="text-line" required>
+                                    <input type="text" name="resposta_q12_2_l2" class="text-line">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">13.</span>
+                            <span>Os polvos gostam que os seus tratadores lhes façam festas. O que é que os polvos fazem
+                                que mostra isso?</span>
+                        </div>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q13" value="A" required>
+                            <span class="option-letter">A</span>
+                            <span>Resolvem puzzles com os seus tratadores.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q13" value="B">
+                            <span class="option-letter">B</span>
+                            <span>Saltam quando estão com fome.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q13" value="C">
+                            <span class="option-letter">C</span>
+                            <span>Tentam alcançar os tratadores e agarram os seus braços.</span>
+                        </label>
+                        <label class="option-container">
+                            <input type="radio" name="resposta_q13" value="D">
+                            <span class="option-letter">D</span>
+                            <span>Comem tudo até ao fim.</span>
+                        </label>
+                    </div>
+
+                    <div class="question-block">
+                        <div class="question-text">
+                            <span class="question-number">14.</span>
+                            <span>O autor afirma que o polvo é um animal «incrível». Indica três exemplos de coisas que
+                                polvos em aquários tenham aprendido a fazer que sejam incríveis.</span>
+                        </div>
+                        <div class="text-response-container">
+                            <div class="sub-feeling" style="color: #64748b; font-size:0.95rem;">1. Primeiro exemplo:
+                            </div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q14_1_l1" class="text-line" required>
+                                    <input type="text" name="resposta_q14_1_l2" class="text-line">
+                                </div>
+                            </div>
+                            <div class="sub-feeling" style="color: #64748b; font-size:0.95rem; margin-top: 20px;">2.
+                                Segundo exemplo:</div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️2</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q14_2_l1" class="text-line" required>
+                                    <input type="text" name="resposta_q14_2_l2" class="text-line">
+                                </div>
+                            </div>
+                            <div class="sub-feeling" style="color: #64748b; font-size:0.95rem; margin-top: 20px;">3.
+                                Terceiro exemplo:</div>
+                            <div style="display: flex; align-items: flex-start;">
+                                <span
+                                    style="border: 0px solid #333; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 15px; margin-top: 5px; font-family: Arial;">✏️3</span>
+                                <div style="flex-grow: 1;">
+                                    <input type="text" name="resposta_q14_3_l1" class="text-line" required>
+                                    <input type="text" name="resposta_q14_3_l2" class="text-line">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn-custom btn-primary-custom"
+                            style="padding: 14px 45px; font-size: 1.1rem;">
+                            Finalizar Simulado <i class="fas fa-check-circle" style="margin-left: 8px;"></i>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -2723,38 +3313,13 @@
         let submissions = JSON.parse(localStorage.getItem('simulado_pirls_submissions')) || [];
 
         // Question Specs for Teacher Panel
-        const questionSpecs = [
-            // Bloco 1
-            { id: 'v1', block: 'O Vaso Vazio', type: 'objective', num: 1, text: 'Porque é que o Imperador organizou o concurso?', correct: 'b', options: { a: 'A) para ensinar coisas sobre plantas às crianças', b: 'B) para escolher um novo Imperador', c: 'C) para mostrar como ele era grandioso', d: 'D) para encontrar a melhor espécie de planta' } },
-            { id: 'v2', block: 'O Vaso Vazio', type: 'subjective', num: 2, text: 'O que é que cada criança recebeu do Imperador?' },
-            { id: 'v3', block: 'O Vaso Vazio', type: 'objective', num: 3, text: 'Porque se chamou «oportunidade preciosa» a cada semente?', correct: 'a', options: { a: 'A) Cada semente permitia ganhar o concurso.', b: 'B) Cada semente era real e muito dispendiosa.', c: 'C) Cada semente ia transformar-se numa linda planta.', d: 'D) Cada semente permitia tornar-se no melhor jardineiro.' } },
-            { id: 'v4', block: 'O Vaso Vazio', type: 'subjective', num: 4, text: 'O que é que mostra que Jun era o melhor jardineiro da aldeia?' },
-            { id: 'v5', block: 'O Vaso Vazio', type: 'objective', num: 5, text: 'Qual foi a primeira coisa que Jun fez quando a sua semente não cresceu?', correct: 'd', options: { a: 'A) Ele construiu uma vedação à volta do seu vaso.', b: 'B) Ele regou a semente mais vezes.', c: 'C) Ele queixou-se aos pais.', d: 'D) Ele tornou a plantar a semente num outro vaso.' } },
-            { id: 'v6', block: 'O Vaso Vazio', type: 'subjective', num: 6, text: 'Porque é que as crianças se riram de Jun? Usa o que aconteceu na história para justificares a tua resposta.' },
-            { id: 'v7', block: 'O Vaso Vazio', type: 'subjective', num: 7, text: 'Na tua opinião, porque é que os pais de Jun lhe disseram para levar o vaso vazio ao palácio?' },
-            { id: 'v8', block: 'O Vaso Vazio', type: 'objective', num: 8, text: 'Porque é que o Imperador ficou mais carrancudo ao olhar para o vaso de Jun?', correct: 'c', options: { a: 'A) Estava preocupado com o concurso.', b: 'B) Pensava que o vaso de Jun não estava suficientemente brilhante.', c: 'C) Estava a esconder o que pensava.', d: 'D) Não sabia porquê é que Jun lá estava.' } },
-            { id: 'v9', block: 'O Vaso Vazio', type: 'objective', num: 9, text: 'Porque é que o Jun disse «Desculpe» ao Imperador?', correct: 'c', options: { a: 'A) Ele tinha feito batota no concurso.', b: 'B) Ele não queria ser um Imperador.', c: 'C) Ele pensava que tinha desapontado o Imperador.', d: 'D) Ele tinha regado a sua semente demasiadas vezes.' } },
-            { id: 'v10', block: 'O Vaso Vazio', type: 'objective', num: 10, text: 'Porque é que as plantas cresceram nos vasos das outras crianças?', correct: 'd', options: { a: 'A) As outras crianças usaram terra melhor.', b: 'B) As outras crianças vigiaram os seus vasos.', c: 'C) As suas sementes foram protegidas por vedações.', d: 'D) As suas sementes foram trocadas por outras novas.' } },
-            { id: 'v11_1', block: 'O Vaso Vazio', type: 'subjective', num: 11, text: 'Explique porque é que Jun se sentiu: Esperançoso:' },
-            { id: 'v11_2', block: 'O Vaso Vazio', type: 'subjective', num: 11, text: 'Explique porque é que Jun se sentiu: Intrigado:' },
-            { id: 'v11_3', block: 'O Vaso Vazio', type: 'subjective', num: 11, text: 'Explique porque é que Jun se sentiu: Derrotado:' },
-
-            // Bloco 2
-            { id: 'p1', block: 'O Incrível Polvo', type: 'checkbox_group', num: 1, text: 'Segundo o texto, quais das afirmações seguintes sobre os polvos são verdadeiras? (Selecione todas as corretas)', correct: ['p1a', 'p1b', 'p1d'], options: { p1a: 'Têm corpos arredondados.', p1b: 'Têm oito braços compridos.', p1c: 'Vivem apenas nas zonas frias do oceano.', p1d: 'Gostam de comer caranguejos e pequenos peixes.', p1e: 'Apanham a comida com as suas bocas.' } },
-            { id: 'p2', block: 'O Incrível Polvo', type: 'subjective', num: 2, text: 'O que é que os polvos utilizam para fazer portas nos seus esconderijos?' },
-            { id: 'p3', block: 'O Incrível Polvo', type: 'objective', num: 3, text: 'No texto, afirma-se que os polvos são «mestres do disfarce». O que é que isso quer dizer?', correct: 'a', options: { a: 'A) Conseguem ficar parecidos com outra coisa qualquer.', b: 'B) São nadadores muito rápidos.', c: 'C) Conseguem lançar tinta escura.', d: 'D) Podem ser de tamanhos diferentes.' } },
-            { id: 'p4', block: 'O Incrível Polvo', type: 'objective', num: 4, text: 'Os polvos não têm ossos. O que é que isso lhes permite fazer?', correct: 'c', options: { a: 'A) Esconderem-se de outros polvos.', b: 'B) Agarrarem-se bem às rochas.', c: 'C) Caberem em espaços muito pequenos.', d: 'D) Ficarem parecidos com algas.' } },
-            { id: 'p5_1', block: 'O Incrível Polvo', type: 'subjective', num: 5, text: 'Indica duas maneiras de os polvos fugirem dos seus predadores. Maneira 1:' },
-            { id: 'p5_2', block: 'O Incrível Polvo', type: 'subjective', num: 5, text: 'Indica duas maneiras de os polvos fugirem dos seus predadores. Maneira 2:' },
-            { id: 'p6', block: 'O Incrível Polvo', type: 'subjective', num: 6, text: 'O que é que o polvo Frieda aprendeu a fazer?' },
-            { id: 'p7', block: 'O Incrível Polvo', type: 'objective', num: 7, text: 'O que é que o polvo Squirt aprendeu a fazer?', correct: 'b', options: { a: 'A) A fazer desenhos do aquário.', b: 'B) A puxar alavancas para lançar tinta para uma tela.' } },
-            { id: 'p8', block: 'O Incrível Polvo', type: 'subjective', num: 8, text: 'Qual é o brinquedo com que Sammy gosta de brincar?' },
-            { id: 'p9_1', block: 'O Incrível Polvo', type: 'subjective', num: 9, text: 'Quais são duas coisas que os polvos fazem para mostrarem que ficam contentes ao verem os seus tratadores? Ação 1:' },
-            { id: 'p9_2', block: 'O Incrível Polvo', type: 'subjective', num: 9, text: 'Quais são duas coisas que os polvos fazem para mostrarem que ficam contentes ao verem os seus tratadores? Ação 2:' },
-            { id: 'p10', block: 'O Incrível Polvo', type: 'objective', num: 10, text: 'Os polvos gostam que os seus tratadores lhes façam festas. O que é que os polvos fazem que mostra isso?', correct: 'c', options: { a: 'A) Resolvem puzzles com os seus tratadores.', b: 'B) Saltam quando estão com fome.', c: 'C) Tentam alcançar os tratadores e agarram os seus braços.', d: 'D) Comem tudo até ao fim.' } },
-            { id: 'p11', block: 'O Incrível Polvo', type: 'objective_opinion', num: 11, text: 'Tendo em conta o que leste no texto, pensas que os aquários são bons para os polvos?', options: { sim: 'Sim', nao: 'Não' } },
-            { id: 'p11_reason', block: 'O Incrível Polvo', type: 'subjective', num: 11, text: 'Justificativa da resposta (Aquários são bons para os polvos?):' }
-        ];
+        const questionSpecs = [];
+        for (let i = 1; i <= 17; i++) {
+            questionSpecs.push({ id: 'v' + i, block: 'O Vaso Vazio', type: 'subjective', num: i, text: 'Questão ' + i });
+        }
+        for (let i = 1; i <= 15; i++) {
+            questionSpecs.push({ id: 'p' + i, block: 'O Incrível Polvo', type: 'subjective', num: i, text: 'Questão ' + i });
+        }
 
         // Tab switching
         function switchTab(tabName, event) {
@@ -2812,154 +3377,116 @@
         }
 
         // Update progress bar
+
         function updateProgress() {
-            const allInputs = document.querySelectorAll('#quiz-container input[type="radio"], #quiz-container input[type="checkbox"], #quiz-container textarea');
-            const filledInputs = Array.from(allInputs).filter(input => {
-                if (input.type === 'radio' || input.type === 'checkbox') {
-                    return input.checked;
-                } else if (input.type === 'textarea' || input.tagName === 'TEXTAREA') {
-                    return input.value.trim() !== '';
+            const form1 = document.getElementById('form-vaso');
+            const form2 = document.getElementById('form-polvo');
+
+            // To be accurate, we can count total named inputs 
+            // Radio groups count as 1. Text/textarea count as 1.
+            const allElements = [...form1.elements, ...form2.elements];
+            const names = new Set();
+            let filledCount = 0;
+            const filledNames = new Set();
+
+            allElements.forEach(el => {
+                if (el.name) {
+                    names.add(el.name);
+                    if ((el.type === 'radio' || el.type === 'checkbox') && el.checked) {
+                        filledNames.add(el.name);
+                    } else if (el.type === 'text' || el.type === 'textarea') {
+                        if (el.value.trim() !== '') filledNames.add(el.name);
+                    }
                 }
-                return false;
             });
 
-            const percentage = Math.round((filledInputs.length / allInputs.length) * 100);
+            const total = names.size;
+            const filled = filledNames.size;
+            const percentage = total > 0 ? Math.round((filled / total) * 100) : 0;
+
             document.getElementById('progressBar').style.width = percentage + '%';
             document.getElementById('progressText').textContent = percentage + '%';
         }
 
-        // Add event listeners for progress tracking
         document.addEventListener('change', updateProgress);
         document.addEventListener('input', updateProgress);
 
-        // Submit quiz
-        function submitQuiz() {
+        function submitQuiz(event) {
+            if (event) event.preventDefault();
             if (!currentStudent) {
                 alert('Sessão expirada. Por favor, identifique-se novamente.');
                 startNewStudent();
                 return;
             }
 
-            const allInputs = document.querySelectorAll('#quiz-container input[type="radio"], #quiz-container input[type="checkbox"], #quiz-container textarea');
-            const filledInputs = Array.from(allInputs).filter(input => {
-                if (input.type === 'radio' || input.type === 'checkbox') {
-                    return input.checked;
-                } else if (input.type === 'textarea' || input.tagName === 'TEXTAREA') {
-                    return input.value.trim() !== '';
+            const form1 = document.getElementById('form-vaso');
+            const form2 = document.getElementById('form-polvo');
+
+            const allElements = [...form1.elements, ...form2.elements];
+            const names = new Set();
+            const filledNames = new Set();
+
+            allElements.forEach(el => {
+                if (el.name) {
+                    names.add(el.name);
+                    if ((el.type === 'radio' || el.type === 'checkbox') && el.checked) {
+                        filledNames.add(el.name);
+                    } else if (el.type === 'text' || el.type === 'textarea') {
+                        if (el.value.trim() !== '') filledNames.add(el.name);
+                    }
                 }
-                return false;
             });
 
-            if (filledInputs.length === 0) {
+            if (filledNames.size === 0) {
                 alert('Por favor, responda pelo menos uma pergunta antes de finalizar!');
                 return;
             }
 
-            // Verificar se há perguntas sem resposta
-            if (filledInputs.length < allInputs.length) {
-                if (!confirm('Você deixou algumas perguntas sem responder. Deseja finalizar o simulado mesmo assim?')) {
+            if (filledNames.size < names.size) {
+                if (!confirm('Você deixou algumas partes sem responder. Deseja finalizar o simulado mesmo assim?')) {
                     return;
                 }
             }
 
-            // Coleta de todas as respostas
-            const answers = {
-                v1: document.querySelector('input[name="v1"]:checked')?.value || '',
-                v2: document.querySelector('textarea[name="v2"]').value.trim(),
-                v3: document.querySelector('input[name="v3"]:checked')?.value || '',
-                v4: document.querySelector('textarea[name="v4"]').value.trim(),
-                v5: document.querySelector('input[name="v5"]:checked')?.value || '',
-                v6: document.querySelector('textarea[name="v6"]').value.trim(),
-                v7: document.querySelector('textarea[name="v7"]').value.trim(),
-                v8: document.querySelector('input[name="v8"]:checked')?.value || '',
-                v9: document.querySelector('input[name="v9"]:checked')?.value || '',
-                v10: document.querySelector('input[name="v10"]:checked')?.value || '',
-                v11_1: document.querySelector('textarea[name="v11_1"]').value.trim(),
-                v11_2: document.querySelector('textarea[name="v11_2"]').value.trim(),
-                v11_3: document.querySelector('textarea[name="v11_3"]').value.trim(),
+            const answers = {};
+            const fd1 = new FormData(form1);
+            for (let [key, val] of fd1.entries()) {
+                if (answers[key]) {
+                    answers[key] += ', ' + val;
+                } else {
+                    answers[key] = val;
+                }
+            }
+            const fd2 = new FormData(form2);
+            for (let [key, val] of fd2.entries()) {
+                if (answers[key]) {
+                    answers[key] += ', ' + val;
+                } else {
+                    answers[key] = val;
+                }
+            }
 
-                p1a: document.getElementById('p1a').checked,
-                p1b: document.getElementById('p1b').checked,
-                p1c: document.getElementById('p1c').checked,
-                p1d: document.getElementById('p1d').checked,
-                p1e: document.getElementById('p1e').checked,
+            // Also capture textareas if FormData misses any due to not having 'name'
+            allElements.forEach(el => {
+                if (el.name && (el.type === 'text' || el.type === 'textarea') && !answers[el.name]) {
+                    answers[el.name] = el.value.trim();
+                }
+            });
 
-                p2: document.querySelector('textarea[name="p2"]').value.trim(),
-                p3: document.querySelector('input[name="p3"]:checked')?.value || '',
-                p4: document.querySelector('input[name="p4"]:checked')?.value || '',
-                p5_1: document.querySelector('textarea[name="p5_1"]').value.trim(),
-                p5_2: document.querySelector('textarea[name="p5_2"]').value.trim(),
-                p6: document.querySelector('textarea[name="p6"]').value.trim(),
-                p7: document.querySelector('input[name="p7"]:checked')?.value || '',
-                p8: document.querySelector('textarea[name="p8"]').value.trim(),
-                p9_1: document.querySelector('textarea[name="p9_1"]').value.trim(),
-                p9_2: document.querySelector('textarea[name="p9_2"]').value.trim(),
-                p10: document.querySelector('input[name="p10"]:checked')?.value || '',
-                p11: document.querySelector('input[name="p11"]:checked')?.value || '',
-                p11_reason: document.querySelector('textarea[name="p11_reason"]').value.trim()
-            };
-
-            // Cálculo dos acertos nas questões objetivas (11 pontos máx)
-            let score = 0;
-            if (answers.v1 === 'b') score++;
-            if (answers.v3 === 'a') score++;
-            if (answers.v5 === 'd') score++;
-            if (answers.v8 === 'c') score++;
-            if (answers.v9 === 'c') score++;
-            if (answers.v10 === 'd') score++;
-
-            // Q1 Polvo (Multi-seleção): A, B, D devem ser verdadeiros, C, E falsos
-            if (answers.p1a && answers.p1b && answers.p1d && !answers.p1c && !answers.p1e) score++;
-
-            if (answers.p3 === 'a') score++;
-            if (answers.p4 === 'c') score++;
-            if (answers.p7 === 'b') score++;
-            if (answers.p10 === 'c') score++;
-
-            // Criar objeto de submissão
             const submission = {
                 id: Date.now(),
                 student: currentStudent,
+                date: new Date().toLocaleString('pt-BR'),
                 answers: answers,
-                score: score,
-                maxScore: 11,
-                date: new Date().toLocaleString('pt-BR')
+                score: 0
             };
 
-            // Salvar no localStorage
             submissions.push(submission);
             localStorage.setItem('simulado_pirls_submissions', JSON.stringify(submissions));
 
-            // Exibir mensagem de conclusão estilizada com o score
-            const compMsg = document.getElementById('completionMessage');
-            const pct = Math.round((score / 11) * 100);
-            const emoji = score >= 9 ? '🏆' : score >= 6 ? '⭐' : '📚';
-            compMsg.innerHTML = `
-                <i class="fas fa-graduation-cap"></i>
-                <h3>Parabéns, ${currentStudent.name}!</h3>
-                <p>Você completou o Simulado PIRLS com sucesso!</p>
-                <div style="background: linear-gradient(135deg, var(--azul-escola) 0%, #7c3aed 100%); color: white; padding: 20px 32px; border-radius: 16px; display: inline-block; margin: 16px 0; box-shadow: 0 8px 32px rgba(30,64,175,0.4);">
-                    <span style="font-size: 0.85rem; font-weight: 700; display: block; text-transform: uppercase; letter-spacing: 1px; opacity: 0.85;">Acertos Objetivos ${emoji}</span>
-                    <strong style="font-size: 2.6rem; font-weight: 900; line-height: 1.1;">${score} <span style="font-size: 1.1rem; font-weight: 500; opacity: 0.8;">de 11</span></strong>
-                    <div style="height:8px; background:rgba(255,255,255,0.2); border-radius:4px; margin-top:10px; overflow:hidden;">
-                        <div style="height:100%; width:${pct}%; background:rgba(255,255,255,0.85); border-radius:4px; transition:width 1s ease;"></div>
-                    </div>
-                    <span style="font-size:0.8rem; opacity:0.8; margin-top:4px; display:block;">${pct}% de aproveitamento</span>
-                </div>
-                <p style="color: var(--texto-medio); margin-bottom: 20px; font-size: 0.95rem;">As respostas dissertativas foram salvas e serão avaliadas pelo professor.</p>
-                <button class="btn-custom btn-primary-custom" onclick="startNewStudent()" style="padding: 12px 32px;">
-                    <i class="fas fa-user-plus"></i> Registrar Próximo Aluno
-                </button>
-            `;
-            compMsg.classList.add('show');
-
-            // 🎉 Confetti!
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('completionMessage').classList.add('show');
             launchConfetti();
-
-            // Ocultar os botões normais para evitar múltiplos envios
-            document.querySelector('.button-group').style.display = 'none';
-
-            window.scrollTo({ top: compMsg.offsetTop - 50, behavior: 'smooth' });
         }
 
 
